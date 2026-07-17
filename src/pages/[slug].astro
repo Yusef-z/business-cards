@@ -18,5 +18,31 @@ const image = Astro.site ? new URL(base + assoc.logo, Astro.site).href : undefin
   description={`البطاقة التعريفية لـ ${assoc.name}`}
   image={image}
 >
-  <Card assoc={assoc} />
+  <div class="org">
+    <img
+      class="org__gov"
+      src={base + "/logos/gov.svg"}
+      alt="وزارة الصناعة والثروة المعدنية"
+      onerror="this.style.display='none'"
+    />
+    <Card assoc={assoc} />
+  </div>
 </Base>
+
+<style>
+  /* Stack the government lockup above the card, both centered. */
+  .org {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    width: 100%;
+    max-width: 384px;
+  }
+  .org__gov {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+  }
+</style>

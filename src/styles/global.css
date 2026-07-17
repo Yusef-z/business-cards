@@ -40,19 +40,8 @@ body {
   color: var(--ink);
   min-height: 100dvh;
   display: grid;
-  place-items: center;
+  place-items: start center;
   padding: 28px 20px;
-}
-/* Deck's diagonal-shard motif, very faint, behind everything. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    125deg, transparent 0 44px, rgba(255, 255, 255, 0.022) 44px 45px
-  );
-  pointer-events: none;
-  z-index: var(--z-base);
 }
 
 /* ---------- Card ---------- */
