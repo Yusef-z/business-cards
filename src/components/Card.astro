@@ -27,13 +27,12 @@ const icons = {
 <article class="card">
   <div class="card__hero">
     <img
-      class="card__icon"
-      src={`/icons/${assoc.slug}.png`}
-      alt=""
-      width="400" height="400"
+      class="card__logo-img"
+      src={assoc.logo}
+      alt={assoc.name}
       onerror="this.style.display='none'"
     />
-    <h1 class="card__name">{assoc.name}</h1>
+    <h1 class="card__name sr-only">{assoc.name}</h1>
   </div>
   <div class="card__seam"></div>
   <div class="card__body">

@@ -84,17 +84,13 @@ body::before {
   gap: 14px;
   text-align: center;
 }
-.card__icon {
-  width: 84px;
-  height: 84px;
+.card__logo-img {
   display: block;
-}
-.card__hero .card__name {
-  color: #fff;
-  font-size: 19px;
-  line-height: 1.45;
-  text-wrap: balance;
-  max-width: 26ch;
+  max-width: 78%;
+  max-height: 130px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 /* Brass seam between the two zones — the one premium accent. */
