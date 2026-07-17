@@ -1,0 +1,209 @@
+[
+  {
+    "slug": "wim",
+    "name": "جمعية المرأة في التعدين",
+    "phone": "+966594313045",
+    "email": "info@wim.org.sa",
+    "website": "https://www.wim.org.sa",
+    "linkedin": "https://www.linkedin.com/company/women-in-mining-association-%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%A7%D9%84%D9%85%D8%B1%D8%A3%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%AA%D8%B9%D8%AF%D9%8A%D9%86/",
+    "x": "https://x.com/sm_wimorg?s=21",
+    "logo": "/logos/wim.png"
+  },
+  {
+    "slug": "mining",
+    "name": "جمعية التعدين",
+    "email": "sm@mining-association.org",
+    "website": "https://www.mining-association.org/",
+    "linkedin": "https://www.linkedin.com/company/mining-association-%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D8%B9%D8%AF%D9%8A%D9%86/",
+    "x": "https://x.com/sm__mining?s=21",
+    "logo": "/logos/mining.png"
+  },
+  {
+    "slug": "datem",
+    "name": "جمعية مصنعي التمور",
+    "phone": "+966565558932",
+    "email": "info@datem.org.sa",
+    "website": "https://www.datem.org.sa/",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D8%A7%D9%84%D8%AA%D9%85%D9%88%D8%B1/",
+    "x": "https://x.com/datemsaorg",
+    "logo": "/logos/datem.png"
+  },
+  {
+    "slug": "pmg",
+    "name": "جمعية المعادن الثمينة والأحجار الكريمة",
+    "phone": "+966598494519",
+    "email": "info@pmg-sa.org",
+    "website": "https://www.pmg-sa.org/",
+    "linkedin": "https://www.linkedin.com/in/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%AF%D9%86-%D8%A7%D9%84%D8%AB%D9%85%D9%8A%D9%86%D8%A9-%D9%88-%D8%A7%D9%84%D8%A3%D8%AD%D8%AC%D8%A7%D8%B1-%D8%A7%D9%84%D9%83%D8%B1%D9%8A%D9%85%D8%A9-8434b2398/",
+    "x": "https://x.com/pmgsaksa",
+    "logo": "/logos/pmg.png"
+  },
+  {
+    "slug": "amasca",
+    "name": "جمعية مصنعي السيارات وسلاسل الإمداد",
+    "phone": "+966541810000",
+    "website": "https://www.amasca.org/",
+    "logo": "/logos/amasca.png"
+  },
+  {
+    "slug": "iia",
+    "name": "جمعية الابتكار الصناعي",
+    "phone": "+966505267064",
+    "linkedin": "https://www.linkedin.com/company/iiassoci/",
+    "x": "https://x.com/iiassoci?s=21",
+    "logo": "/logos/iia.png"
+  },
+  {
+    "slug": "exporters",
+    "name": "جمعية المصدرين الصناعيين",
+    "phone": "+966540478767",
+    "email": "tariq@exporters.sa",
+    "website": "https://exporters.sa/",
+    "linkedin": "https://www.linkedin.com/company/saudiexporters/",
+    "x": "https://x.com/exporterssa?s=21",
+    "logo": "/logos/exporters.png"
+  },
+  {
+    "slug": "saudiscp",
+    "name": "جمعية سلاسل الامداد والمشتريات",
+    "phone": "+966532857777",
+    "email": "info@saudiscp.org",
+    "website": "https://saudiscp.org/",
+    "linkedin": "https://www.linkedin.com/company/scp-society/",
+    "x": "https://x.com/scps_sa?s=21",
+    "logo": "/logos/saudiscp.png"
+  },
+  {
+    "slug": "slamatc",
+    "name": "جمعية سلامتك",
+    "phone": "+966535418555",
+    "email": "info@slamatc.org",
+    "website": "https://www.slamatc.org/",
+    "linkedin": "https://www.linkedin.com/company/salmatac-sa",
+    "x": "https://x.com/slamatc_sa?s=21",
+    "logo": "/logos/slamatc.png"
+  },
+  {
+    "slug": "pia",
+    "name": "جمعية الصناعات الدوائية",
+    "phone": "+966503121776",
+    "email": "info@pia.sa",
+    "website": "https://www.pia.sa/",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%A7%D9%84%D8%B5%D9%86%D8%A7%D8%B9%D8%A7%D8%AA-%D8%A7%D9%84%D8%AF%D9%88%D8%A7%D8%A6%D9%8A%D8%A9/",
+    "x": "https://x.com/pia_ksa?s=21",
+    "logo": "/logos/pia.png"
+  },
+  {
+    "slug": "industrialfuture",
+    "name": "جمعية المستقبل الصناعي",
+    "phone": "+966501267789",
+    "email": "info@industrialfuture.sa",
+    "website": "https://industrialfuture.sa/",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%82%D8%A8%D9%84-%D8%A7%D9%84%D8%B5%D9%86%D8%A7%D8%B9%D9%8A-%D8%A7%D9%84%D8%A3%D9%87%D9%84%D9%8A%D8%A9",
+    "x": "https://x.com/ifcaksa?s=21",
+    "logo": "/logos/industrialfuture.png"
+  },
+  {
+    "slug": "mdma",
+    "name": "جمعية مصنعي الاجهزة الطبية",
+    "phone": "+966503254022",
+    "email": "info@mdma.org.sa",
+    "website": "https://www.mdma.org.sa",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D8%A7%D9%84%D8%A3%D8%AC%D9%87%D8%B2%D8%A9-%D8%A7%D9%84%D8%B7%D8%A8%D9%8A%D8%A9/",
+    "x": "https://x.com/sm__mdma?s=21",
+    "logo": "/logos/mdma.png"
+  },
+  {
+    "slug": "sidam",
+    "name": "جمعية التنمية والاستدامة",
+    "phone": "+966553455335",
+    "email": "info@sidam.org.sa",
+    "website": "https://www.sidam.org.sa",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D9%86%D9%85%D9%8A%D8%A9-%D9%88%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AF%D8%A7%D9%85%D8%A9-%D9%81%D9%8A-%D9%82%D8%B7%D8%A7%D8%B9%D9%8A-%D8%A7%D9%84%D8%B5%D9%86%D8%A7%D8%B9%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D8%B9%D8%AF%D9%8A%D9%86/?viewAsMember=true",
+    "x": "https://x.com/sm_sidam?s=21",
+    "logo": "/logos/sidam.png"
+  },
+  {
+    "slug": "chemical",
+    "name": "جمعية مصنعي الكيماويات",
+    "phone": "+966505900929",
+    "email": "info@chemicalsa.org.sa",
+    "website": "https://www.chemicalsa.org.sa/",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D8%A7%D9%88%D9%8A%D8%A7%D8%AA-chemical-manufacturers-association/",
+    "x": "https://x.com/chemicalsa_sa",
+    "logo": "/logos/chemical.png"
+  },
+  {
+    "slug": "tahfez",
+    "name": "جمعية تحفيز الصناعات المحلية",
+    "phone": "+966541810000",
+    "email": "info@tahfez.org.sa",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%AA%D8%AD%D9%81%D9%8A%D8%B2-%D8%A7%D9%84%D8%B5%D9%86%D8%A7%D8%B9%D8%A7%D8%AA-%D8%A7%D9%84%D9%85%D8%AD%D9%84%D9%8A%D8%A9/about/",
+    "logo": "/logos/tahfez.png"
+  },
+  {
+    "slug": "food",
+    "name": "جمعية مصنعي الاغذية",
+    "phone": "+966554442437",
+    "email": "info@food-ma.org",
+    "website": "https://www.food-ma.org/",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D8%A7%D9%84%D8%A3%D8%BA%D8%B0%D9%8A%D8%A9-food-manufacturers-association-food/",
+    "x": "https://x.com/food_m_a",
+    "logo": "/logos/food.png"
+  },
+  {
+    "slug": "aircraft",
+    "name": "جمعية مصنعي الطائرات",
+    "phone": "+966581100003",
+    "email": "info@aircraft-manu.org",
+    "website": "https://www.aircraft-manu.org/",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D8%A7%D9%84%D8%B7%D8%A7%D8%A6%D8%B1%D8%A7%D8%AA/",
+    "x": "https://x.com/aircraftma1?s=11",
+    "logo": "/logos/aircraft.png"
+  },
+  {
+    "slug": "jba",
+    "name": "جمعية مصنعي العصائر والمشروبات",
+    "phone": "+966555006223",
+    "email": "info@jba.org.sa",
+    "website": "https://www.jba.org.sa/",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D8%A7%D9%84%D9%85%D8%B4%D8%B1%D9%88%D8%A8%D8%A7%D8%AA/posts/?feedView=all",
+    "x": "https://x.com/jba_Org",
+    "logo": "/logos/jba.png"
+  },
+  {
+    "slug": "bma",
+    "name": "جمعية مصنعي مواد البناء",
+    "phone": "+966500073502",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D9%85%D9%88%D8%A7%D8%AF-%D8%A7%D9%84%D8%A8%D9%86%D8%A7%D8%A1/about/",
+    "logo": "/logos/bma.png"
+  },
+  {
+    "slug": "fma",
+    "name": "جمعية مصنعي الأثاث",
+    "phone": "+966505484083",
+    "email": "info@fma.org.sa",
+    "website": "https://www.fma.org.sa/",
+    "x": "https://x.com/fma_org_sa",
+    "logo": "/logos/fma.png"
+  },
+  {
+    "slug": "mema",
+    "name": "جمعية مصنعي الالات والمعدات",
+    "phone": "+966555131477",
+    "email": "info@mema.org.sa",
+    "website": "https://www.mema.org.sa",
+    "x": "https://x.com/memaorg",
+    "logo": "/logos/mema.png"
+  },
+  {
+    "slug": "ela",
+    "name": "جمعية التوطين الهندسي",
+    "phone": "+966535871777",
+    "email": "info@ela.sa",
+    "website": "https://ela.sa/",
+    "linkedin": "https://www.linkedin.com/company/ela-sa1/posts/?feedView=images&viewAsMember=true",
+    "x": "https://x.com/Ela_sa1",
+    "logo": "/logos/ela.png"
+  }
+]
