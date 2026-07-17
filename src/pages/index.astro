@@ -1,5 +1,10 @@
 ---
+import Base from "../layouts/Base.astro";
 ---
-<!DOCTYPE html>
-<html lang="ar" dir="rtl"><head><meta charset="utf-8" /><title>نتاج</title></head>
-<body></body></html>
+<Base title="نتاج">
+  <div class="card" style="max-width:360px">
+    <img class="card__logo" src="/logos/_brand.png" alt="نتاج"
+      onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'card__logo-fallback',textContent:'نتاج'}))" />
+    <h1 class="card__name" style="margin-bottom:0">الدليل التعريفي للجمعيات</h1>
+  </div>
+</Base>
