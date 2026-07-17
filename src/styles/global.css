@@ -73,29 +73,28 @@ body::before {
 }
 
 /* Hero zone — full-bleed purple, logo lockup, subtle depth. */
-/* Clean, flat header — no vignette or texture, so the flat-filled logo lockup
-   blends in with no visible edge. The shard motif lives on the page background. */
+/* Clean, flat header — icon mark + the association name as text. The icon is an
+   opaque square filled with the hero color, so it blends in with no visible edge. */
 .card__hero {
   background: var(--hero-base);
-  padding: 44px 26px 40px;
-  display: grid;
-  place-items: center;
+  padding: 32px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
 }
-.card__lockup {
-  position: relative;
-  z-index: var(--z-content);
-  width: 176px;
-  max-width: 62%;
-  height: auto;
+.card__icon {
+  width: 84px;
+  height: 84px;
   display: block;
-  /* No drop-shadow: the lockup is an opaque square filled with the hero color,
-     so a shadow would draw a visible rectangular frame. It blends seamlessly. */
 }
-.card__lockup-fallback {
-  position: relative;
-  z-index: var(--z-content);
-  font-weight: 700; font-size: 18px; color: #fff;
-  padding: 16px; line-height: 1.4; text-align: center;
+.card__hero .card__name {
+  color: #fff;
+  font-size: 19px;
+  line-height: 1.45;
+  text-wrap: balance;
+  max-width: 26ch;
 }
 
 /* Brass seam between the two zones — the one premium accent. */

@@ -29,8 +29,10 @@ Official · precise · quietly premium — like a metal credential card, not a f
   white is the detail zone. Any second accent stays a hairline, used once.
 - **Type:** IBM Plex Sans Arabic (deliberately kept — it is one of the best-drawn Arabic
   sans faces and reads as credible/official; identity-preservation over novelty).
-- **Logos:** each association's official icon + bilingual-name lockup, white artwork on
-  the deck purple, cropped from the source deck. The lockup carries the name.
+- **Logos:** each association's official mark, white artwork on the deck purple, cropped
+  from the source deck. The card header shows the icon-only mark (`public/icons/`) with
+  the association name as text; the full icon+name lockup (`public/logos/`) is used for
+  social share (Open Graph) previews.
 
 ## Content per card
 

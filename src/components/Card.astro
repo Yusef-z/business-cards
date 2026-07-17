@@ -27,17 +27,16 @@ const icons = {
 <article class="card">
   <div class="card__hero">
     <img
-      class="card__lockup"
-      src={assoc.logo}
-      alt={assoc.name}
-      width="600" height="600"
-      onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'card__lockup-fallback',textContent:this.alt}))"
+      class="card__icon"
+      src={`/icons/${assoc.slug}.png`}
+      alt=""
+      width="400" height="400"
+      onerror="this.style.display='none'"
     />
+    <h1 class="card__name">{assoc.name}</h1>
   </div>
   <div class="card__seam"></div>
   <div class="card__body">
-    <h1 class="card__name sr-only">{assoc.name}</h1>
-
     <a class="btn--primary" href={`/vcards/${assoc.slug}.vcf`}>
       <span class="btn__icon" set:html={icons.save} />
       <span>حفظ جهة الاتصال</span>
