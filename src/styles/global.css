@@ -1,68 +1,223 @@
 :root {
-  --bg: #2e2350;
-  --bg-2: #3a2d63;
-  --card: #ffffff;
-  --ink: #241a40;
-  --muted: #6b6483;
-  --accent: #5b3fbf;
-  --accent-ink: #ffffff;
-  --line: #ece9f5;
+  /* Committed Nataj brand purple. Hero base is the literal hex the logo
+     lockups are filled with (#2e2350) so the lockup never shows a seam. */
+  --hero-base: #2e2350;
+  --bg:        oklch(0.29 0.085 293);
+  --bg-deep:   oklch(0.21 0.07 293);
+  --bg-glow:   oklch(0.40 0.11 292);
+
+  --surface:   #ffffff;
+  --ink:       oklch(0.27 0.05 293);   /* headings + contact values on white */
+  --ink-soft:  oklch(0.44 0.035 293);  /* secondary text */
+  --muted:     oklch(0.58 0.028 293);  /* chevrons, non-text marks only */
+  --line:      oklch(0.92 0.013 293);  /* hairline borders */
+
+  --accent:        oklch(0.53 0.19 293);
+  --accent-strong: oklch(0.46 0.20 293);
+  --accent-wash:   oklch(0.955 0.028 293); /* icon-chip background */
+  --accent-ink:    #ffffff;
+
+  --brass: oklch(0.80 0.085 84);       /* single premium accent: the seam */
+
+  --focus: oklch(0.60 0.19 293);
+  --radius: 22px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --shadow: 0 1px 2px rgba(20, 10, 40, 0.05), 0 24px 50px -16px rgba(24, 12, 60, 0.5);
+
+  /* z-index scale */
+  --z-base: 1;
+  --z-content: 2;
 }
+
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+
 body {
   font-family: "IBM Plex Sans Arabic", system-ui, sans-serif;
-  background: radial-gradient(120% 120% at 50% 0%, var(--bg-2), var(--bg));
+  background:
+    radial-gradient(135% 100% at 50% -12%, var(--bg-glow), var(--bg) 46%, var(--bg-deep));
   color: var(--ink);
   min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 28px 20px;
 }
+/* Deck's diagonal-shard motif, very faint, behind everything. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    125deg, transparent 0 44px, rgba(255, 255, 255, 0.022) 44px 45px
+  );
+  pointer-events: none;
+  z-index: var(--z-base);
+}
+
+/* ---------- Card ---------- */
 .card {
+  position: relative;
+  z-index: var(--z-content);
   width: 100%;
-  max-width: 400px;
-  background: var(--card);
-  border-radius: 24px;
-  padding: 32px 24px;
-  box-shadow: 0 24px 60px rgba(0,0,0,.28);
-  text-align: center;
-}
-.card__logo {
-  width: 104px; height: 104px; margin: 0 auto 16px;
-  border-radius: 50%; object-fit: contain; background: #fff;
-  border: 1px solid var(--line); display: grid; place-items: center;
+  max-width: 384px;
+  background: var(--surface);
+  border-radius: var(--radius);
   overflow: hidden;
+  box-shadow: var(--shadow);
+  animation: card-rise 0.62s var(--ease) both;
 }
-.card__logo-fallback {
-  font-weight: 700; font-size: 15px; color: var(--accent);
-  padding: 8px; line-height: 1.3;
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(16px) scale(0.99); }
+  to   { opacity: 1; transform: none; }
 }
+
+/* Hero zone — full-bleed purple, logo lockup, subtle depth. */
 .card__hero {
-  background: var(--bg);
-  border-radius: 16px;
-  padding: 22px;
-  margin-bottom: 22px;
+  position: relative;
+  background: var(--hero-base);
+  padding: 44px 26px 40px;
   display: grid;
   place-items: center;
+  overflow: hidden;
 }
-.card__lockup { width: 210px; max-width: 100%; height: auto; display: block; }
+/* Vignette only (no texture inside the hero) so the flat-filled logo lockup
+   blends seamlessly — the shard motif lives on the page background instead.
+   Darkening is kept to the far corners so it never meets the lockup edge. */
+.card__hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90% 82% at 50% 40%, transparent 70%, rgba(0, 0, 0, 0.26));
+}
+.card__lockup {
+  position: relative;
+  z-index: var(--z-content);
+  width: 176px;
+  max-width: 62%;
+  height: auto;
+  display: block;
+  /* No drop-shadow: the lockup is an opaque square filled with the hero color,
+     so a shadow would draw a visible rectangular frame. It blends seamlessly. */
+}
 .card__lockup-fallback {
+  position: relative;
+  z-index: var(--z-content);
   font-weight: 700; font-size: 18px; color: #fff;
-  padding: 16px; line-height: 1.4;
+  padding: 16px; line-height: 1.4; text-align: center;
 }
-.card__name { font-size: 22px; font-weight: 700; margin: 0 0 24px; }
+
+/* Brass seam between the two zones — the one premium accent. */
+.card__seam {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--brass) 22%, var(--brass) 78%, transparent);
+  opacity: 0.85;
+}
+
+/* Detail zone — white, contact actions. */
+.card__body {
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.card__name { font-size: 20px; font-weight: 700; margin: 0; color: var(--ink); }
+
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-.actions { display: flex; flex-direction: column; gap: 10px; }
-.btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 14px 16px; border-radius: 14px; text-decoration: none;
-  font-size: 16px; font-weight: 600; border: 1px solid var(--line);
-  color: var(--ink); background: #fff; transition: background .15s;
+
+/* ---------- Primary action ---------- */
+.btn--primary {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%;
+  padding: 15px 18px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+  color: var(--accent-ink);
+  font-family: inherit;
+  font-size: 16px; font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 22px -10px rgba(60, 30, 140, 0.7);
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), filter 0.18s var(--ease);
 }
-.btn:hover { background: #f6f4fc; }
-.btn--primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.btn--primary:hover { background: #4a32a0; }
+.btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -10px rgba(60, 30, 140, 0.8);
+  filter: brightness(1.06);
+}
+.btn--primary:active { transform: translateY(0); box-shadow: 0 8px 18px -10px rgba(60, 30, 140, 0.7); }
+.btn__icon { display: inline-flex; flex: 0 0 auto; }
+.btn__icon svg { width: 20px; height: 20px; display: block; }
+
+/* ---------- Contact rows (tappable buttons) ---------- */
+.contacts { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.row {
+  display: flex; align-items: center; gap: 13px;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.18s var(--ease), border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+}
+.row:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 18px -10px rgba(60, 30, 120, 0.45);
+}
+.row__chip {
+  flex: 0 0 auto;
+  width: 40px; height: 40px;
+  border-radius: 11px;
+  display: grid; place-items: center;
+  background: var(--accent-wash);
+  color: var(--accent);
+}
+.row__chip svg { width: 20px; height: 20px; display: block; }
+.row__value {
+  flex: 1 1 auto;
+  direction: ltr; unicode-bidi: plaintext; text-align: right;
+  font-size: 15px; font-weight: 600; letter-spacing: 0.2px;
+  color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.row__go { flex: 0 0 auto; color: var(--muted); display: inline-flex; }
+.row__go svg { width: 18px; height: 18px; display: block; }
+.row:hover .row__go { color: var(--accent); }
+
+/* ---------- Social footer ---------- */
+.socials {
+  display: flex; justify-content: center; gap: 12px;
+  margin-top: 6px; padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.icon-btn {
+  width: 46px; height: 46px;
+  border-radius: 13px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  transition: transform 0.18s var(--ease), background 0.18s var(--ease),
+    color 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+.icon-btn svg { width: 21px; height: 21px; display: block; }
+.icon-btn:hover { transform: translateY(-1px); }
+.icon-btn--linkedin:hover { background: #0a66c2; color: #fff; border-color: #0a66c2; }
+.icon-btn--x:hover { background: #000; color: #fff; border-color: #000; }
+
+/* ---------- Focus ---------- */
+a:focus-visible, .btn--primary:focus-visible, .icon-btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .card { animation: none; }
+  .btn--primary, .row, .icon-btn { transition: none; }
+  .btn--primary:hover, .row:hover, .icon-btn:hover { transform: none; }
+}
