@@ -12,14 +12,15 @@
   --muted:     oklch(0.58 0.028 293);  /* chevrons, non-text marks only */
   --line:      oklch(0.92 0.013 293);  /* hairline borders */
 
-  --accent:        oklch(0.53 0.19 293);
-  --accent-strong: oklch(0.46 0.20 293);
-  --accent-wash:   oklch(0.955 0.028 293); /* icon-chip background */
-  --accent-ink:    #ffffff;
+  /* Action color = the header background, so buttons and icons match the theme. */
+  --accent:      var(--hero-base);       /* #2e2350 — buttons, icons, active borders */
+  --accent-2:    oklch(0.36 0.09 293);   /* lighter shade for hover */
+  --accent-wash: oklch(0.95 0.022 293);  /* icon-chip background */
+  --accent-ink:  #ffffff;
 
   --brass: oklch(0.80 0.085 84);       /* single premium accent: the seam */
 
-  --focus: oklch(0.60 0.19 293);
+  --focus: oklch(0.45 0.15 293);
   --radius: 22px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --shadow: 0 1px 2px rgba(20, 10, 40, 0.05), 0 24px 50px -16px rgba(24, 12, 60, 0.5);
@@ -72,22 +73,13 @@ body::before {
 }
 
 /* Hero zone — full-bleed purple, logo lockup, subtle depth. */
+/* Clean, flat header — no vignette or texture, so the flat-filled logo lockup
+   blends in with no visible edge. The shard motif lives on the page background. */
 .card__hero {
-  position: relative;
   background: var(--hero-base);
   padding: 44px 26px 40px;
   display: grid;
   place-items: center;
-  overflow: hidden;
-}
-/* Vignette only (no texture inside the hero) so the flat-filled logo lockup
-   blends seamlessly — the shard motif lives on the page background instead.
-   Darkening is kept to the far corners so it never meets the lockup edge. */
-.card__hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(90% 82% at 50% 40%, transparent 70%, rgba(0, 0, 0, 0.26));
 }
 .card__lockup {
   position: relative;
@@ -134,18 +126,18 @@ body::before {
   padding: 15px 18px;
   border: 0;
   border-radius: 14px;
-  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+  background: var(--accent);
   color: var(--accent-ink);
   font-family: inherit;
   font-size: 16px; font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 10px 22px -10px rgba(60, 30, 140, 0.7);
-  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), filter 0.18s var(--ease);
+  box-shadow: 0 10px 22px -12px rgba(30, 15, 70, 0.75);
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s var(--ease);
 }
 .btn--primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 28px -10px rgba(60, 30, 140, 0.8);
-  filter: brightness(1.06);
+  background: var(--accent-2);
+  box-shadow: 0 14px 28px -12px rgba(30, 15, 70, 0.85);
 }
 .btn--primary:active { transform: translateY(0); box-shadow: 0 8px 18px -10px rgba(60, 30, 140, 0.7); }
 .btn__icon { display: inline-flex; flex: 0 0 auto; }
@@ -178,11 +170,11 @@ body::before {
 }
 .row__chip svg { width: 20px; height: 20px; display: block; }
 .row__value {
-  flex: 1 1 auto;
+  flex: 1 1 auto; min-width: 0;
   direction: ltr; unicode-bidi: plaintext; text-align: right;
-  font-size: 15px; font-weight: 600; letter-spacing: 0.2px;
+  font-size: 14.5px; font-weight: 600; letter-spacing: 0.2px; line-height: 1.35;
   color: var(--ink);
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  overflow-wrap: anywhere; /* show the full value; wrap long emails instead of truncating */
 }
 .row__go { flex: 0 0 auto; color: var(--muted); display: inline-flex; }
 .row__go svg { width: 18px; height: 18px; display: block; }
@@ -200,14 +192,17 @@ body::before {
   display: grid; place-items: center;
   border: 1px solid var(--line);
   background: #fff;
-  color: var(--ink);
+  color: var(--accent);
   transition: transform 0.18s var(--ease), background 0.18s var(--ease),
     color 0.18s var(--ease), border-color 0.18s var(--ease);
 }
 .icon-btn svg { width: 21px; height: 21px; display: block; }
-.icon-btn:hover { transform: translateY(-1px); }
-.icon-btn--linkedin:hover { background: #0a66c2; color: #fff; border-color: #0a66c2; }
-.icon-btn--x:hover { background: #000; color: #fff; border-color: #000; }
+.icon-btn:hover {
+  transform: translateY(-1px);
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
 
 /* ---------- Focus ---------- */
 a:focus-visible, .btn--primary:focus-visible, .icon-btn:focus-visible {
