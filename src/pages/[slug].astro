@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import Card from "../components/Card.astro";
+import associations from "../data/associations.json";
+
+export function getStaticPaths() {
+  return associations.map((assoc) => ({
+    params: { slug: assoc.slug },
+    props: { assoc },
+  }));
+}
+const { assoc } = Astro.props;
+const origin = "https://example.com"; // replace with the real domain at deploy time
+---
+<Base
+  title={assoc.name}
+  description={`البطاقة التعريفية لـ ${assoc.name}`}
+  image={`${origin}${assoc.logo}`}
+>
+  <Card assoc={assoc} />
+</Base>
