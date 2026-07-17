@@ -10,7 +10,8 @@ export function getStaticPaths() {
   }));
 }
 const { assoc } = Astro.props;
-const image = Astro.site ? new URL(assoc.logo, Astro.site).href : undefined;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const image = Astro.site ? new URL(base + assoc.logo, Astro.site).href : undefined;
 ---
 <Base
   title={assoc.name}

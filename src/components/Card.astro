@@ -5,6 +5,9 @@ interface Assoc {
 }
 const { assoc } = Astro.props as { assoc: Assoc };
 
+// Prefix site-absolute asset/link paths with the deploy base (e.g. /business-cards).
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 // Present the raw data in a human-friendly form (values stay LTR in the RTL card).
 function formatPhone(p: string): string {
   const m = p.match(/^\+966(\d{2})(\d{3})(\d{4})$/);
@@ -28,7 +31,7 @@ const icons = {
   <div class="card__hero">
     <img
       class="card__logo-img"
-      src={assoc.logo}
+      src={base + assoc.logo}
       alt={assoc.name}
       onerror="this.style.display='none'"
     />
@@ -36,7 +39,7 @@ const icons = {
   </div>
   <div class="card__seam"></div>
   <div class="card__body">
-    <a class="btn--primary" href={`/vcards/${assoc.slug}.vcf`}>
+    <a class="btn--primary" href={`${base}/vcards/${assoc.slug}.vcf`}>
       <span class="btn__icon" set:html={icons.save} />
       <span>حفظ جهة الاتصال</span>
     </a>
