@@ -6,6 +6,8 @@ interface Assoc {
   phone?: string; email?: string; website?: string;
 }
 
+const esc = (s: string) => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+
 export function getStaticPaths() {
   return (associations as Assoc[]).map((assoc) => ({
     params: { slug: assoc.slug },
@@ -18,9 +20,9 @@ export const GET: APIRoute = ({ props }) => {
   const lines = [
     "BEGIN:VCARD",
     "VERSION:3.0",
-    `N:${a.name};;;;`,
-    `FN:${a.name}`,
-    `ORG:${a.name}`,
+    `N:${esc(a.name)};;;;`,
+    `FN:${esc(a.name)}`,
+    `ORG:${esc(a.name)}`,
   ];
   if (a.phone) lines.push(`TEL;TYPE=WORK,VOICE:${a.phone}`);
   if (a.email) lines.push(`EMAIL;TYPE=WORK:${a.email}`);

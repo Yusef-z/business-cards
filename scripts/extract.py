@@ -70,7 +70,7 @@ def build():
     cells = load("xl/worksheets/sheet3.xml")
     out = []
     for row in range(3, 25):
-        r = cells[row]
+        r = cells.get(row, {})
         slug = ROW_SLUG[row]
         ov = OVERRIDES.get(slug, {})
         rec = {"slug": slug, "name": r.get("A", "").strip()}

@@ -2,5 +2,6 @@
   command = "npm run build"
   publish = "dist"
 
+# Set SITE_URL to your canonical domain (e.g. https://cards.example.com) to enable correct og:image URLs.
 [build.environment]
   NODE_VERSION = "22"

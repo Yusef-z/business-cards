@@ -10,12 +10,12 @@ export function getStaticPaths() {
   }));
 }
 const { assoc } = Astro.props;
-const origin = "https://example.com"; // replace with the real domain at deploy time
+const image = Astro.site ? new URL(assoc.logo, Astro.site).href : undefined;
 ---
 <Base
   title={assoc.name}
   description={`البطاقة التعريفية لـ ${assoc.name}`}
-  image={`${origin}${assoc.logo}`}
+  image={image}
 >
   <Card assoc={assoc} />
 </Base>

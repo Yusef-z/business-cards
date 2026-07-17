@@ -22,4 +22,5 @@ Slugs are immutable — they are printed in QR codes.
 ## Deploy (free)
 Connect the repo to Cloudflare Pages or Netlify:
 build command `npm run build`, output dir `dist`, Node 22.
-Set the real domain in `src/pages/[slug].astro` (`origin`) before publishing.
+Set the real domain via the `SITE_URL` environment variable in your host (Netlify/Cloudflare Pages),
+or by editing `site` in `astro.config.mjs`.
