@@ -6,15 +6,16 @@ interface Assoc {
 const { assoc } = Astro.props as { assoc: Assoc };
 ---
 <div class="card">
-  <div class="card__logo">
+  <div class="card__hero">
     <img
+      class="card__lockup"
       src={assoc.logo}
       alt={assoc.name}
-      width="104" height="104"
-      onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'card__logo-fallback',textContent:this.alt}))"
+      width="600" height="600"
+      onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'card__lockup-fallback',textContent:this.alt}))"
     />
   </div>
-  <h1 class="card__name">{assoc.name}</h1>
+  <h1 class="card__name sr-only">{assoc.name}</h1>
   <div class="actions">
     <a class="btn btn--primary" href={`/vcards/${assoc.slug}.vcf`}>حفظ جهة الاتصال</a>
     {assoc.phone && <a class="btn" href={`tel:${assoc.phone}`}>اتصال</a>}
