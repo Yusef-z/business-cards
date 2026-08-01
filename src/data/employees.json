@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "osama-dawud",
+    "name": "Dr. Osama Dawud",
+    "title": "CEO",
+    "org": "Al Watania Holding Group",
+    "email": "o.Dawud@alwatania-holding.com",
+    "phone": "+962795144133",
+    "photo": null
+  },
+  {
+    "slug": "mustafa-abdulghani",
+    "name": "Mustafa Abdulghani",
+    "title": "CFO",
+    "org": "Al Watania Holding Group",
+    "email": "m.Abdulghani@alwatania-holding.com",
+    "phone": "+9647873931297",
+    "photo": null
+  },
+  {
+    "slug": "khlood-ouda-al-ameri",
+    "name": "Khlood Ouda Al-Ameri",
+    "title": "HR Director",
+    "org": "Al Watania Holding Group",
+    "email": "k.Al-Ameri@alwatania-holding.com",
+    "phone": "+9647800221313",
+    "photo": null
+  },
+  {
+    "slug": "reem-manhal-abdulhameed",
+    "name": "Reem Manhal Abdulhameed",
+    "title": "Deputy HR Director",
+    "org": "Al Watania Holding Group",
+    "email": "r.Abdulhamed@alwatania-holding.com",
+    "phone": "+9647880984995",
+    "photo": null
+  },
+  {
+    "slug": "jamal-naser-hussein",
+    "name": "Jamal Naser Hussein",
+    "title": "Internal Control Director",
+    "org": "Al Watania Holding Group",
+    "email": "j.nasser@alwatania-holding.com",
+    "phone": "+9647865065090",
+    "photo": null
+  },
+  {
+    "slug": "maher-zahran",
+    "name": "Maher Zahran",
+    "title": "Internal Audit Director",
+    "org": "Al Watania Holding Group",
+    "email": "m.Zahran@alwatania-holding.com",
+    "phone": "+9647873931276",
+    "photo": null
+  },
+  {
+    "slug": "jehad-wehbi",
+    "name": "Jehad Wehbi",
+    "title": "Deputy CFO",
+    "org": "Al Watania Holding Group",
+    "email": "j.wehbi@alwatania-holding.com",
+    "phone": "+9647814451818",
+    "photo": null
+  },
+  {
+    "slug": "ahmed-qasim-mohammad",
+    "name": "Ahmed Qasim Mohammad",
+    "title": "Sr. Accountant",
+    "org": "Al Watania Holding Group",
+    "email": "A.qasim@alwatania-holding.com",
+    "phone": "+9647893310264",
+    "photo": null
+  },
+  {
+    "slug": "mohamed-essam-elnamas",
+    "name": "Mohamed Essam Elnamas",
+    "title": "Financial Consultant",
+    "org": "Al Watania Holding Group",
+    "email": "m.essam@alwatania-holding.com",
+    "phone": "+9647855538511",
+    "photo": null
+  },
+  {
+    "slug": "talib-dagher-kadhum",
+    "name": "Talib Dagher Kadhum",
+    "title": "Projects Engineer",
+    "org": "Al Watania Holding Group",
+    "email": "T.dagher@alwatania-holding.com",
+    "phone": "+9647732988019",
+    "photo": null
+  },
+  {
+    "slug": "hussein-alaa-ali",
+    "name": "Hussein Alaa Ali",
+    "title": "IT PMO - Group Level",
+    "org": "Al Watania Holding Group",
+    "email": "H.alaa@alwatania-holding.com",
+    "phone": "+9647717458968",
+    "photo": null
+  },
+  {
+    "slug": "mustafa-saad-hameed",
+    "name": "Mustafa Saad Hameed",
+    "title": "Internal Audit Officer",
+    "org": "Al Watania Holding Group",
+    "email": "M.Saad@alwatania-holding.com",
+    "phone": "+9647857275975",
+    "photo": null
+  },
+  {
+    "slug": "mustafa-hameed-talib",
+    "name": "Mustafa Hameed Talib",
+    "title": "Internal Control Officer",
+    "org": "Al Watania Holding Group",
+    "email": "M.Hameed@alwatania-holding.com",
+    "phone": "+9647827125898",
+    "photo": null
+  }
+]
