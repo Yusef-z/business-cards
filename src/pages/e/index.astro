@@ -1,0 +1,26 @@
+---
+import PersonBase from "../../layouts/PersonBase.astro";
+import employees from "../../data/employees.json";
+import { initials } from "../../lib/employees.js";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<PersonBase title="Al Watania Holding Group — Team" description="Al Watania Holding Group team directory">
+  <section class="team">
+    <img class="team__logo" src={base + "/brand/watania-logo.png"} alt="Al Watania Holding Group"
+         onerror="this.style.display='none'" />
+    <h1 class="team__heading">Our Team</h1>
+    <ul class="team__grid">
+      {employees.map((e) => (
+        <li>
+          <a class="tcard" href={`${base}/e/${e.slug}`}>
+            <span class="tcard__avatar">
+              {e.photo ? <img src={base + e.photo} alt={e.name} /> : <span>{initials(e.name)}</span>}
+            </span>
+            <span class="tcard__name">{e.name}</span>
+            <span class="tcard__title">{e.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</PersonBase>
