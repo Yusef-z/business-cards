@@ -15,6 +15,7 @@
     "astro": "^5.0.0"
   },
   "devDependencies": {
+    "qrcode": "^1.5.4",
     "vitest": "^4.1.10"
   }
 }
