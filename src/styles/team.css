@@ -1,0 +1,22 @@
+:root {
+  --petrol: #003349;
+  --green: #6abf4b;
+  --lbg: #d8dfe1;
+  --mbg: #7b9eab;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Changa", system-ui, -apple-system, sans-serif;
+  background: #eef1f3;
+  color: var(--petrol);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 28px 16px;
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
