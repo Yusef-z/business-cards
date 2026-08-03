@@ -33,7 +33,7 @@ font, Watania petrol/green identity. Fully separate from the association cards.
 
 - Source data: `employees_list.csv`
 - Regenerate data:  `node scripts/build-employees.mjs`  → `src/data/employees.json`
-- Regenerate QR:    `node scripts/make-qr.mjs`           → `qrcodes/e/`
+- Regenerate QR:    `python3 scripts/make_qr.py`         → `qrcodes/e/` (branded, logo-centered; needs `pip install "qrcode[pil]"`)
 - Extract the logo: `python3 scripts/extract_logo.py`    (one-off; swap in an official SVG if available)
 - Unit tests:       `npm test`
 
