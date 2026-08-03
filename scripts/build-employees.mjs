@@ -4,6 +4,9 @@ import { dirname, resolve } from "node:path";
 import { slugify, stripHonorific, normalizePhone } from "../src/lib/employees.js";
 
 const ORG = "Al Watania Holding Group";
+// Company-wide constants shown on every card (not present per-row in the source).
+const WEBSITE = "https://www.alwatania-holding.com";
+const LOCATION = "Baghdad, Baghdad Governorate Iraq";
 
 // One-off corrections for known issues in the source CSV, keyed by the
 // whitespace-collapsed original value. Explicit so they are reviewable.
@@ -23,7 +26,7 @@ export function parseEmployeesCsv(csvText) {
       const email = rawEmail.trim();
       const phone = normalizePhone(rawPhone);
       const slug = slugify(stripHonorific(name));
-      return { slug, name, title, org: ORG, email, phone, photo: null };
+      return { slug, name, title, org: ORG, email, phone, website: WEBSITE, location: LOCATION, photo: null };
     });
 }
 

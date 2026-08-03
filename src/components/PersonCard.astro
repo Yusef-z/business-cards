@@ -1,99 +1,264 @@
 ---
-import { formatPhoneDisplay, initials } from "../lib/employees.js";
+import { initials } from "../lib/employees.js";
 interface Emp {
   slug: string; name: string; title: string; org: string;
-  email: string; phone: string; photo: string | null;
+  email: string; phone: string; website: string; location: string; photo: string | null;
 }
 const { emp } = Astro.props as { emp: Emp };
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 const vcf = `${base}/e/vcards/${emp.slug}.vcf`;
+const email = emp.email.toLowerCase();
+const webDisplay = emp.website.replace(/^https?:\/\//, "").replace(/\/$/, "");
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(emp.location)}`;
 
-const icons = {
-  phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
-  email: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
-  briefcase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
-  save: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>',
-  go: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
-};
+const chevron = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>';
+
+const rows = [
+  { icon: "phone",    text: emp.phone,    href: `tel:${emp.phone}`,   ltr: true },
+  { icon: "website",  text: webDisplay,   href: emp.website,          ltr: true, ext: true },
+  { icon: "mail",     text: email,        href: `mailto:${email}`,     ltr: true },
+  { icon: "location", text: emp.location, href: mapsHref,             ext: true },
+];
 ---
-<article class="pcard">
-  <header class="pcard__hero">
-    <img class="pcard__brand" src={base + "/brand/watania-logo.png"} alt={emp.org}
-         onerror="this.style.display='none'" />
-    <div class="pcard__avatar">
+<main class="ecard">
+  <section class="ecard__top">
+    <img class="ecard__bg" src={base + "/e/banner-bg.png"} alt="" aria-hidden="true" />
+    <img class="ecard__logo" src={base + "/e/logo.png"} alt={emp.org} />
+    <div class="ecard__avatar">
       {emp.photo
-        ? <img src={base + emp.photo} alt={emp.name} />
-        : <span class="pcard__initials">{initials(emp.name)}</span>}
+        ? <img class="ecard__photo" src={base + emp.photo} alt={emp.name} />
+        : <div class="ecard__photo ecard__photo--ph">{initials(emp.name)}</div>}
+      <img class="ecard__ring" src={base + "/e/avatar-frame.png"} alt="" aria-hidden="true" />
     </div>
-    <h1 class="pcard__name">{emp.name}</h1>
-    <p class="pcard__title">{emp.title}</p>
-  </header>
+    <h1 class="ecard__name">{emp.name}</h1>
+    <p class="ecard__title">{emp.title}</p>
+  </section>
 
-  <nav class="pcard__actions">
-    <a class="act" href={`tel:${emp.phone}`}><span class="act__i" set:html={icons.phone} /><span>Call</span></a>
-    <a class="act" href={`mailto:${emp.email}`}><span class="act__i" set:html={icons.email} /><span>Email</span></a>
-    <a class="act" href={vcf}><span class="act__i" set:html={icons.save} /><span>Save</span></a>
-  </nav>
+  <section class="ecard__bottom">
+    <ul class="ecard__rows">
+      {rows.map((r) => (
+        <li>
+          <a
+            class="ecard__row"
+            href={r.href}
+            {...(r.ext ? { target: "_blank", rel: "noopener" } : {})}
+          >
+            <img class="ecard__row-icon" src={`${base}/e/icons/${r.icon}.png`} alt="" aria-hidden="true" />
+            <span class="ecard__row-text" dir={r.ltr ? "ltr" : undefined}>{r.text}</span>
+            <span class="ecard__row-go" set:html={chevron} />
+          </a>
+        </li>
+      ))}
+    </ul>
 
-  <div class="pcard__body">
-    <a class="row" href={`tel:${emp.phone}`}>
-      <span class="row__chip" set:html={icons.phone} />
-      <span class="row__text">
-        <span class="row__value" dir="ltr">{formatPhoneDisplay(emp.phone)}</span>
-        <span class="row__label">Mobile</span>
-      </span>
-      <span class="row__go" set:html={icons.go} />
-    </a>
-    <a class="row" href={`mailto:${emp.email}`}>
-      <span class="row__chip" set:html={icons.email} />
-      <span class="row__text">
-        <span class="row__value" dir="ltr">{emp.email}</span>
-        <span class="row__label">Email</span>
-      </span>
-      <span class="row__go" set:html={icons.go} />
-    </a>
-    <div class="row row--static">
-      <span class="row__chip" set:html={icons.briefcase} />
-      <span class="row__text">
-        <span class="row__value">{emp.org}</span>
-        <span class="row__label">{emp.title}</span>
-      </span>
+    <div class="ecard__divider"></div>
+
+    <div class="ecard__actions">
+      <a class="ecard__action" href={vcf} download aria-label="Save contact">
+        <img src={base + "/e/icons/add.png"} alt="Save contact" />
+      </a>
+      <button
+        class="ecard__action"
+        type="button"
+        aria-label="Share"
+        data-share-url={Astro.url.href}
+        onclick="(async()=>{const b=event.currentTarget;const u=b.dataset.shareUrl||location.href;try{if(navigator.share){await navigator.share({title:document.title,url:u})}else{await navigator.clipboard.writeText(u);b.classList.add('is-copied');setTimeout(()=>b.classList.remove('is-copied'),1400)}}catch(e){}})()"
+      >
+        <img src={base + "/e/icons/share.png"} alt="Share" />
+        <span class="ecard__toast">Link copied</span>
+      </button>
     </div>
-  </div>
-</article>
+  </section>
+</main>
+
+<style is:global>
+  /* This page is a full-bleed card; neutralize the shared team.css body layout. */
+  html, body { margin: 0; padding: 0; }
+  body {
+    display: block;
+    background: #05303c;
+    padding: 0;
+  }
+</style>
 
 <style>
-  .pcard { width: 100%; max-width: 384px; background: #fff; border-radius: 22px;
-    overflow: hidden; box-shadow: 0 12px 44px rgba(0,51,73,.16); }
-  .pcard__hero { position: relative; padding: 32px 24px 26px; text-align: center;
-    color: #fff; background: linear-gradient(160deg, #6abf4b 0%, #2f8560 42%, #003349 100%); }
-  .pcard__brand { position: absolute; top: 14px; left: 14px; height: 30px;
-    background: #fff; padding: 5px 8px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
-  .pcard__avatar { width: 116px; height: 116px; margin: 6px auto 16px; border-radius: 50%;
-    background: rgba(255,255,255,.15); border: 3px solid rgba(255,255,255,.9);
-    display: grid; place-items: center; overflow: hidden; }
-  .pcard__avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .pcard__initials { font-size: 42px; font-weight: 800; letter-spacing: 1px; }
-  .pcard__name { margin: 0; font-size: 24px; font-weight: 800; line-height: 1.15; }
-  .pcard__title { margin: 7px 0 0; font-size: 15px; font-weight: 600; color: #dbe6d6; }
-  .pcard__actions { display: grid; grid-template-columns: repeat(3, 1fr); background: #003349; }
-  .act { display: flex; flex-direction: column; align-items: center; gap: 6px;
-    padding: 15px 4px; color: #fff; text-decoration: none; font-size: 12px; font-weight: 600; }
-  .act + .act { border-left: 1px solid rgba(255,255,255,.12); }
-  .act__i :global(svg) { width: 20px; height: 20px; }
-  .act:active { background: #6abf4b; }
-  .pcard__body { padding: 8px 16px 18px; }
-  .row { display: flex; align-items: center; gap: 14px; padding: 14px 6px;
-    text-decoration: none; color: #003349; border-bottom: 1px solid #eef1f2; }
-  .row:last-child { border-bottom: 0; }
-  .row--static { cursor: default; }
-  .row__chip { flex: 0 0 40px; height: 40px; border-radius: 11px; background: #eaf5e6;
-    color: #3f9a2e; display: grid; place-items: center; }
-  .row__chip :global(svg) { width: 19px; height: 19px; }
-  .row__text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-  .row__value { font-size: 15px; font-weight: 600; overflow: hidden;
-    text-overflow: ellipsis; white-space: nowrap; }
-  .row__label { font-size: 12px; color: #7b9eab; margin-top: 2px; }
-  .row__go { margin-left: auto; color: #c4ccce; }
-  .row__go :global(svg) { width: 18px; height: 18px; }
+  .ecard {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100dvh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    overflow: hidden;
+    font-family: "Changa", system-ui, -apple-system, sans-serif;
+  }
+
+  /* ---------- TOP (white, arch watermark) ---------- */
+  .ecard__top {
+    position: relative;
+    padding: 30px 24px 26px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .ecard__bg {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 118%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 42%;
+    pointer-events: none;
+  }
+  .ecard__top > :not(.ecard__bg) { position: relative; z-index: 1; }
+
+  .ecard__logo {
+    display: block;
+    height: 44px;
+    width: auto;
+    margin: 4px auto 18px;
+  }
+
+  .ecard__avatar {
+    position: relative;
+    width: 176px;
+    height: 176px;
+    margin: 6px auto 16px;
+  }
+  .ecard__photo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 83%;
+    height: 83%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .ecard__photo--ph {
+    display: grid;
+    place-items: center;
+    background: linear-gradient(160deg, #e2efdc 0%, #eef1f3 100%);
+    color: #003349;
+    font-weight: 800;
+    font-size: 46px;
+    letter-spacing: 1px;
+  }
+  .ecard__ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .ecard__name {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 800;
+    color: #003349;
+    line-height: 1.15;
+  }
+  .ecard__title {
+    margin: 4px 0 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #5cb544;
+  }
+
+  /* ---------- BOTTOM (petrol -> green) ---------- */
+  .ecard__bottom {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 26px 20px 28px;
+    background: linear-gradient(178deg, #063340 0%, #0e4a49 46%, #3d8853 100%);
+  }
+  .ecard__rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .ecard__row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 14px;
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .ecard__row:active { background: rgba(255, 255, 255, 0.16); }
+  .ecard__row-icon {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+  .ecard__row-text {
+    flex: 1;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .ecard__row-go {
+    flex: 0 0 15px;
+    color: rgba(255, 255, 255, 0.5);
+    display: inline-flex;
+  }
+  .ecard__row-go :global(svg) { width: 15px; height: 15px; }
+
+  .ecard__divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.16);
+    margin: auto 4px 18px;
+  }
+
+  .ecard__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .ecard__action {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 17px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 14px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .ecard__action:active { background: rgba(255, 255, 255, 0.16); }
+  .ecard__action img { width: 26px; height: 26px; object-fit: contain; }
+  .ecard__toast {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #003349;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .ecard__action.is-copied .ecard__toast { opacity: 1; }
 </style>

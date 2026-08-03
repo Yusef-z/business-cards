@@ -34,10 +34,13 @@ describe("buildVCard", () => {
   const v = buildVCard({
     name: "Hussein Alaa Ali", title: "IT PMO – Group Level",
     org: "Al Watania Holding Group", phone: "+9647717458968", email: "h.alaa@x.com",
+    website: "https://www.alwatania-holding.com", location: "Baghdad, Baghdad Governorate Iraq",
   });
   it("has the full name", () => expect(v).toContain("FN:Hussein Alaa Ali"));
   it("has the title", () => expect(v).toContain("TITLE:IT PMO – Group Level"));
   it("has a work phone", () => expect(v).toContain("TEL;TYPE=WORK,VOICE:+9647717458968"));
   it("has a work email", () => expect(v).toContain("EMAIL;TYPE=WORK:h.alaa@x.com"));
+  it("has the website URL", () => expect(v).toContain("URL:https://www.alwatania-holding.com"));
+  it("has the work address", () => expect(v).toContain("ADR;TYPE=WORK:;;Baghdad\\, Baghdad Governorate Iraq;;;;"));
   it("uses CRLF and ends with END", () => expect(v.endsWith("END:VCARD\r\n")).toBe(true));
 });

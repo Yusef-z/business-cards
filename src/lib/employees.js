@@ -46,7 +46,7 @@ export function initials(name) {
 const esc = (s) =>
   String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
 
-export function buildVCard({ name, title, org, phone, email }) {
+export function buildVCard({ name, title, org, phone, email, website, location }) {
   const lines = [
     "BEGIN:VCARD",
     "VERSION:3.0",
@@ -57,6 +57,8 @@ export function buildVCard({ name, title, org, phone, email }) {
   if (title) lines.push(`TITLE:${esc(title)}`);
   if (phone) lines.push(`TEL;TYPE=WORK,VOICE:${phone}`);
   if (email) lines.push(`EMAIL;TYPE=WORK:${email}`);
+  if (website) lines.push(`URL:${esc(website)}`);
+  if (location) lines.push(`ADR;TYPE=WORK:;;${esc(location)};;;;`);
   lines.push("END:VCARD");
   return lines.join("\r\n") + "\r\n";
 }
