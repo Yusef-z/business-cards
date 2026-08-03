@@ -7,4 +7,10 @@ export default defineConfig({
   // GitHub Pages project site: https://yusef-z.github.io/business-cards/
   site: process.env.SITE_URL || "https://yusef-z.github.io",
   base: process.env.BASE_PATH || "/business-cards",
+  vite: {
+    server: {
+      // Allow the dev server to be reached through this ngrok tunnel.
+      allowedHosts: ["sparrow-assured-repeatedly.ngrok-free.app"],
+    },
+  },
 });
