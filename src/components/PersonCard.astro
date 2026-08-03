@@ -92,6 +92,15 @@ const rows = [
     background: #fff;
     overflow: hidden;
     font-family: "Changa", system-ui, -apple-system, sans-serif;
+    /* Rise into view as the splash screen clears. */
+    animation: ecard-rise 0.6s ease 1.35s both;
+  }
+  @keyframes ecard-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ecard { animation: none; }
   }
 
   /* ---------- TOP (white, arch watermark) ---------- */
