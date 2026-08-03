@@ -43,7 +43,7 @@ def make_qr(url: str, out_path: str) -> None:
     pad = int(w * PAD_RATIO)
     draw = ImageDraw.Draw(img)
     x0, y0 = (w - pad) // 2, (h - pad) // 2
-    draw.rounded_rectangle([x0, y0, x0 + pad, y0 + pad], radius=int(pad * 0.16), fill=(255, 255, 255, 255))
+    draw.rectangle([x0, y0, x0 + pad, y0 + pad], fill=(255, 255, 255, 255))
 
     logo = Image.open(LOGO).convert("RGBA")
     lw = int(w * LOGO_RATIO)
