@@ -86,7 +86,6 @@ const rows = [
   .ecard {
     width: 100%;
     max-width: 430px;
-    min-height: 100dvh;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -124,27 +123,33 @@ const rows = [
 
   .ecard__avatar {
     position: relative;
-    width: 176px;
-    height: 176px;
-    margin: 6px auto 16px;
+    /* OVERALL avatar size (frame + photo scale together). */
+    width: 120px;
+    height: 120px;
+    margin: 6px auto 12px;
+    /* PHOTO size INSIDE the frame, independent of the frame.
+       100% = fills to the ring's outer edge (perfect fit).
+       Lower it (e.g. 94%) to shrink just the image within the ring. */
+    --photo-size: 103%;
   }
   .ecard__photo {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 83%;
-    height: 83%;
+    width: var(--photo-size);
+    height: var(--photo-size);
     border-radius: 50%;
     object-fit: cover;
   }
+  /* The frame always fills the avatar box; it does NOT follow --photo-size. */
   .ecard__photo--ph {
     display: grid;
     place-items: center;
-    background: linear-gradient(160deg, #e2efdc 0%, #eef1f3 100%);
+    background: #dfe6e8;
     color: #003349;
     font-weight: 800;
-    font-size: 46px;
+    font-size: 27px;
     letter-spacing: 1px;
   }
   .ecard__ring {
@@ -157,25 +162,27 @@ const rows = [
 
   .ecard__name {
     margin: 0;
-    font-size: 23px;
-    font-weight: 800;
+    font-size: 17px;
+    font-weight: 600;
     color: #003349;
-    line-height: 1.15;
+    line-height: 1.2;
   }
   .ecard__title {
-    margin: 4px 0 0;
-    font-size: 15px;
+    margin: 1px 0 0;
+    font-size: 17px;
     font-weight: 600;
     color: #5cb544;
+    line-height: 1.2;
   }
 
   /* ---------- BOTTOM (petrol -> green) ---------- */
   .ecard__bottom {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 26px 20px 28px;
-    background: linear-gradient(178deg, #063340 0%, #0e4a49 46%, #3d8853 100%);
+    justify-content: flex-start;
+    padding: 22px 20px 26px;
+    /* Bright green at the bottom-left, deepening to petrol at the top-right. */
+    background: linear-gradient(to top right, #77b25f 0%, #033e4f 100%);
   }
   .ecard__rows {
     list-style: none;
@@ -183,21 +190,27 @@ const rows = [
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 4px;
   }
   .ecard__row {
     display: flex;
     align-items: center;
     gap: 15px;
     padding: 15px 16px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 14px;
+    /* Frosted on the left, fading into the background toward the arrow. */
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.07) 52%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    border: 0;
+    border-radius: 0;
     color: #fff;
     text-decoration: none;
-    transition: background 0.15s ease;
+    transition: filter 0.15s ease;
   }
-  .ecard__row:active { background: rgba(255, 255, 255, 0.16); }
+  .ecard__row:active { filter: brightness(1.35); }
   .ecard__row-icon {
     flex: 0 0 22px;
     width: 22px;
@@ -223,27 +236,32 @@ const rows = [
   .ecard__divider {
     height: 1px;
     background: rgba(255, 255, 255, 0.16);
-    margin: auto 4px 18px;
+    margin: 16px 4px;
   }
 
   .ecard__actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 5px;
   }
   .ecard__action {
     position: relative;
     display: grid;
     place-items: center;
     padding: 17px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 14px;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border: 0;
+    border-radius: 0;
     color: #fff;
     text-decoration: none;
     cursor: pointer;
+    transition: filter 0.15s ease;
   }
-  .ecard__action:active { background: rgba(255, 255, 255, 0.16); }
+  .ecard__action:active { filter: brightness(1.35); }
   .ecard__action img { width: 26px; height: 26px; object-fit: contain; }
   .ecard__toast {
     position: absolute;
