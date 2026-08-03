@@ -13,7 +13,7 @@ import glob
 import os
 
 import cv2
-from PIL import Image
+from PIL import Image, ImageOps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "photos")
@@ -22,7 +22,14 @@ MODEL = os.path.join(ROOT, "scripts", "models", "face_yunet.onnx")
 
 SIZE = 600        # output avatar size (px, square)
 CROP_MULT = 2.0   # crop side = 2.0x the detected face height (head + shoulders)
-FACE_V = 0.44     # place the face centre at 44% of the crop height
+FACE_V = 0.44     # face centre sits at 44% of the crop height
+FACE_H = 0.03     # face centre sits at (50% + 3%) horizontally -> nudged right
+
+
+def bg_color(im):
+    w, h = im.size
+    pts = [im.getpixel(p) for p in ((1, 1), (w - 2, 1), (1, h - 2), (w - 2, h - 2))]
+    return tuple(sum(c[i] for c in pts) // len(pts) for i in range(3))
 
 
 def face_center(path):
@@ -45,17 +52,25 @@ def crop_one(path, out):
     fc = face_center(path)
     if fc is None:
         s = min(w, h)
-        x, y = (w - s) // 2, (h - s) // 2
+        x0, y0 = (w - s) // 2, (h - s) // 2
+        crop = im.crop((x0, y0, x0 + s, y0 + s))
         note = "centre crop (no face found)"
     else:
         fcx, fcy, fh = fc
-        s = min(int(fh * CROP_MULT), w, h)
-        x = max(0, min(int(fcx - s / 2), w - s))
-        y = max(0, min(int(fcy - s * FACE_V), h - s))
+        s = int(fh * CROP_MULT)
+        # Target face position in the crop: (50% + FACE_H) across, FACE_V down.
+        x0 = int(fcx - s * (0.5 + FACE_H))
+        y0 = int(fcy - s * FACE_V)
+        x1, y1 = x0 + s, y0 + s
+        # Pad (with the studio background colour) rather than clamp, so the face
+        # lands exactly where we want even near an edge.
+        pl, pt, pr, pb = max(0, -x0), max(0, -y0), max(0, x1 - w), max(0, y1 - h)
+        if pl or pt or pr or pb:
+            im = ImageOps.expand(im, (pl, pt, pr, pb), fill=bg_color(im))
+            x0, y0, x1, y1 = x0 + pl, y0 + pt, x1 + pl, y1 + pt
+        crop = im.crop((x0, y0, x1, y1))
         note = "face-centred"
-    im.crop((x, y, x + s, y + s)).resize((SIZE, SIZE), Image.LANCZOS).save(
-        out, quality=88, optimize=True
-    )
+    crop.resize((SIZE, SIZE), Image.LANCZOS).save(out, quality=88, optimize=True)
     return note
 
 
