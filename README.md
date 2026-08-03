@@ -24,3 +24,19 @@ Connect the repo to Cloudflare Pages or Netlify:
 build command `npm run build`, output dir `dist`, Node 22.
 Set the real domain via the `SITE_URL` environment variable in your host (Netlify/Cloudflare Pages),
 or by editing `site` in `astro.config.mjs`.
+
+## Employee cards (Al Watania Holding Group)
+
+Individual staff cards live at `/e/<slug>` (e.g. `/e/hussein-alaa-ali`), with a
+team directory at `/e` and a vCard at `/e/vcards/<slug>.vcf`. English, LTR, Changa
+font, Watania petrol/green identity. Fully separate from the association cards.
+
+- Source data: `employees_list.csv`
+- Regenerate data:  `node scripts/build-employees.mjs`  → `src/data/employees.json`
+- Regenerate QR:    `node scripts/make-qr.mjs`           → `qrcodes/e/`
+- Extract the logo: `python3 scripts/extract_logo.py`    (one-off; swap in an official SVG if available)
+- Unit tests:       `npm test`
+
+Photos are optional: drop `public/team/<slug>.jpg` and set `"photo": "/team/<slug>.jpg"`
+in `src/data/employees.json` (the card falls back to initials when `photo` is null).
+Slugs are immutable — they are printed in QR codes.

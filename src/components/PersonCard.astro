@@ -1,0 +1,282 @@
+---
+import { initials } from "../lib/employees.js";
+interface Emp {
+  slug: string; name: string; title: string; org: string;
+  email: string; phone: string; website: string; location: string; photo: string | null;
+}
+const { emp } = Astro.props as { emp: Emp };
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const vcf = `${base}/e/vcards/${emp.slug}.vcf`;
+const email = emp.email.toLowerCase();
+const webDisplay = emp.website.replace(/^https?:\/\//, "").replace(/\/$/, "");
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(emp.location)}`;
+
+const chevron = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>';
+
+const rows = [
+  { icon: "phone",    text: emp.phone,    href: `tel:${emp.phone}`,   ltr: true },
+  { icon: "website",  text: webDisplay,   href: emp.website,          ltr: true, ext: true },
+  { icon: "mail",     text: email,        href: `mailto:${email}`,     ltr: true },
+  { icon: "location", text: emp.location, href: mapsHref,             ext: true },
+];
+---
+<main class="ecard">
+  <section class="ecard__top">
+    <img class="ecard__bg" src={base + "/e/banner-bg.png"} alt="" aria-hidden="true" />
+    <img class="ecard__logo" src={base + "/e/logo.png"} alt={emp.org} />
+    <div class="ecard__avatar">
+      {emp.photo
+        ? <img class="ecard__photo" src={base + emp.photo} alt={emp.name} />
+        : <div class="ecard__photo ecard__photo--ph">{initials(emp.name)}</div>}
+      <img class="ecard__ring" src={base + "/e/avatar-frame.png"} alt="" aria-hidden="true" />
+    </div>
+    <h1 class="ecard__name">{emp.name}</h1>
+    <p class="ecard__title">{emp.title}</p>
+  </section>
+
+  <section class="ecard__bottom">
+    <ul class="ecard__rows">
+      {rows.map((r) => (
+        <li>
+          <a
+            class="ecard__row"
+            href={r.href}
+            {...(r.ext ? { target: "_blank", rel: "noopener" } : {})}
+          >
+            <img class="ecard__row-icon" src={`${base}/e/icons/${r.icon}.png`} alt="" aria-hidden="true" />
+            <span class="ecard__row-text" dir={r.ltr ? "ltr" : undefined}>{r.text}</span>
+            <span class="ecard__row-go" set:html={chevron} />
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="ecard__divider"></div>
+
+    <div class="ecard__actions">
+      <a class="ecard__action" href={vcf} download aria-label="Save contact">
+        <img src={base + "/e/icons/add.png"} alt="Save contact" />
+      </a>
+      <button
+        class="ecard__action"
+        type="button"
+        aria-label="Share"
+        data-share-url={Astro.url.href}
+        onclick="(async()=>{const b=event.currentTarget;const u=b.dataset.shareUrl||location.href;try{if(navigator.share){await navigator.share({title:document.title,url:u})}else{await navigator.clipboard.writeText(u);b.classList.add('is-copied');setTimeout(()=>b.classList.remove('is-copied'),1400)}}catch(e){}})()"
+      >
+        <img src={base + "/e/icons/share.png"} alt="Share" />
+        <span class="ecard__toast">Link copied</span>
+      </button>
+    </div>
+  </section>
+</main>
+
+<style is:global>
+  /* This page is a full-bleed card; neutralize the shared team.css body layout. */
+  html, body { margin: 0; padding: 0; }
+  body {
+    display: block;
+    background: #05303c;
+    padding: 0;
+  }
+</style>
+
+<style>
+  .ecard {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    overflow: hidden;
+    font-family: "Changa", system-ui, -apple-system, sans-serif;
+  }
+
+  /* ---------- TOP (white, arch watermark) ---------- */
+  .ecard__top {
+    position: relative;
+    padding: 30px 24px 26px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .ecard__bg {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 118%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 42%;
+    pointer-events: none;
+  }
+  .ecard__top > :not(.ecard__bg) { position: relative; z-index: 1; }
+
+  .ecard__logo {
+    display: block;
+    height: 44px;
+    width: auto;
+    margin: 4px auto 18px;
+  }
+
+  .ecard__avatar {
+    position: relative;
+    /* OVERALL avatar size (frame + photo scale together). */
+    width: 120px;
+    height: 120px;
+    margin: 6px auto 12px;
+    /* PHOTO size INSIDE the frame, independent of the frame.
+       100% = fills to the ring's outer edge (perfect fit).
+       Lower it (e.g. 94%) to shrink just the image within the ring. */
+    --photo-size: 103%;
+  }
+  .ecard__photo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--photo-size);
+    height: var(--photo-size);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  /* The frame always fills the avatar box; it does NOT follow --photo-size. */
+  .ecard__photo--ph {
+    display: grid;
+    place-items: center;
+    background: #dfe6e8;
+    color: #003349;
+    font-weight: 800;
+    font-size: 27px;
+    letter-spacing: 1px;
+  }
+  .ecard__ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .ecard__name {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #003349;
+    line-height: 1.2;
+  }
+  .ecard__title {
+    margin: 1px 0 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #5cb544;
+    line-height: 1.2;
+  }
+
+  /* ---------- BOTTOM (petrol -> green) ---------- */
+  .ecard__bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 22px 20px 26px;
+    /* Bright green at the bottom-left, deepening to petrol at the top-right. */
+    background: linear-gradient(to top right, #77b25f 0%, #033e4f 100%);
+  }
+  .ecard__rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ecard__row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 16px;
+    /* Frosted on the left, fading into the background toward the arrow. */
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.07) 52%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    border: 0;
+    border-radius: 0;
+    color: #fff;
+    text-decoration: none;
+    transition: filter 0.15s ease;
+  }
+  .ecard__row:active { filter: brightness(1.35); }
+  .ecard__row-icon {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+  .ecard__row-text {
+    flex: 1;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .ecard__row-go {
+    flex: 0 0 15px;
+    color: rgba(255, 255, 255, 0.5);
+    display: inline-flex;
+  }
+  .ecard__row-go :global(svg) { width: 15px; height: 15px; }
+
+  .ecard__divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.16);
+    margin: 16px 4px;
+  }
+
+  .ecard__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+  .ecard__action {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 17px;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border: 0;
+    border-radius: 0;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+  .ecard__action:active { filter: brightness(1.35); }
+  .ecard__action img { width: 26px; height: 26px; object-fit: contain; }
+  .ecard__toast {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #003349;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .ecard__action.is-copied .ecard__toast { opacity: 1; }
+</style>
