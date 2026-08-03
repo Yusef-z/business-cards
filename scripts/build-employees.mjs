@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { slugify, stripHonorific, normalizePhone } from "../src/lib/employees.js";
@@ -35,6 +35,18 @@ if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
   const dir = dirname(fileURLToPath(import.meta.url));
   const csv = readFileSync(resolve(dir, "../employees_list.csv"), "utf8");
   const employees = parseEmployeesCsv(csv);
+
+  // Auto-attach a photo when public/team/<slug>.<ext> exists (drop a file, re-run).
+  const exts = ["jpg", "jpeg", "png", "webp"];
+  for (const e of employees) {
+    for (const ext of exts) {
+      if (existsSync(resolve(dir, `../public/team/${e.slug}.${ext}`))) {
+        e.photo = `/team/${e.slug}.${ext}`;
+        break;
+      }
+    }
+  }
+
   const out = resolve(dir, "../src/data/employees.json");
   writeFileSync(out, JSON.stringify(employees, null, 2) + "\n");
   console.log(`Wrote ${employees.length} employees to ${out}`);
