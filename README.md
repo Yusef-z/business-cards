@@ -32,11 +32,13 @@ team directory at `/e` and a vCard at `/e/vcards/<slug>.vcf`. English, LTR, Chan
 font, Watania petrol/green identity. Fully separate from the association cards.
 
 - Source data: `employees_list.csv`
-- Regenerate data:  `node scripts/build-employees.mjs`  → `src/data/employees.json`
+- Crop photos:      `python3 scripts/crop_photos.py`      `photos/<slug>.<ext>` → `public/team/<slug>.jpg` (face-centred; needs `pip install opencv-python pillow`)
+- Regenerate data:  `node scripts/build-employees.mjs`  → `src/data/employees.json` (auto-attaches any `public/team/<slug>.*`)
 - Regenerate QR:    `python3 scripts/make_qr.py`         → `qrcodes/e/` (branded, logo-centered; needs `pip install "qrcode[pil]"`)
 - Extract the logo: `python3 scripts/extract_logo.py`    (one-off; swap in an official SVG if available)
 - Unit tests:       `npm test`
 
-Photos are optional: drop `public/team/<slug>.jpg` and set `"photo": "/team/<slug>.jpg"`
-in `src/data/employees.json` (the card falls back to initials when `photo` is null).
+Photos are optional. To add one: drop the raw headshot in `photos/<slug>.<ext>`,
+run `crop_photos.py` (face-centres it into `public/team/<slug>.jpg`), then re-run
+`build-employees.mjs`. The card falls back to initials when a person has no photo.
 Slugs are immutable — they are printed in QR codes.
