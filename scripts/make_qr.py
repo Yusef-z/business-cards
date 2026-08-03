@@ -14,7 +14,7 @@ import os
 
 import qrcode
 from qrcode.image.styledpil import StyledPilImage
-from qrcode.image.styles.moduledrawers.pil import RoundedModuleDrawer
+from qrcode.image.styles.moduledrawers.pil import SquareModuleDrawer
 from qrcode.image.styles.colormasks import SolidFillColorMask
 from PIL import Image, ImageDraw
 
@@ -35,7 +35,7 @@ def make_qr(url: str, out_path: str) -> None:
     qr.make(fit=True)
     img = qr.make_image(
         image_factory=StyledPilImage,
-        module_drawer=RoundedModuleDrawer(),
+        module_drawer=SquareModuleDrawer(),
         color_mask=SolidFillColorMask(front_color=(0, 0, 0), back_color=(255, 255, 255)),
     ).convert("RGBA")
     w, h = img.size
