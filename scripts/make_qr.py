@@ -26,7 +26,7 @@ OUT_DIR = os.path.join(ROOT, "qrcodes", "e")
 
 # Logo geometry as a fraction of the QR width.
 PAD_RATIO = 0.30      # white clear-zone (square) behind the logo
-LOGO_RATIO = 0.3375   # logo size; 1.5x the pad-fitting size (fills / slightly overflows the square)
+LOGO_RATIO = 0.30375  # logo size; 1.35x the pad-fitting size (fills the square)
 
 
 def make_qr(url: str, out_path: str) -> None:
