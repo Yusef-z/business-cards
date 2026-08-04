@@ -1,11 +1,55 @@
 ---
-import Base from "../layouts/Base.astro";
+// Landing page for the domain root (areez-qr.com). Self-contained; the
+// association and employee cards live at their own routes.
 ---
-<Base title="نتاج">
-  <div class="card" style="max-width:360px">
-    <div class="card__body" style="text-align:center; gap:8px; padding:34px 26px">
-      <h1 class="card__name">الدليل التعريفي للجمعيات</h1>
-      <p style="color:var(--ink-soft); margin:0; font-size:15px">مبادرة نتاج · وزارة الصناعة والثروة المعدنية</p>
-    </div>
-  </div>
-</Base>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Areez Business Card Services</title>
+    <meta name="description" content="Areez Business Card Services — digital business cards." />
+    <meta property="og:title" content="Areez Business Card Services" />
+    <meta name="theme-color" content="#0b1220" />
+    <style>
+      * { box-sizing: border-box; margin: 0; }
+      html, body { height: 100%; }
+      body {
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        text-align: center;
+        color: #fff;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        background: radial-gradient(125% 125% at 50% 0%, #17253d 0%, #0b1220 62%);
+      }
+      .brand { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+      .brand__name {
+        font-size: clamp(52px, 15vw, 104px);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        background: linear-gradient(180deg, #ffffff 0%, #b9c6e0 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .brand__rule { width: 56px; height: 3px; border-radius: 3px; background: #3f7cf0; }
+      .brand__tag {
+        font-size: clamp(13px, 3.4vw, 18px);
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: #9fb0d0;
+        padding-left: 0.34em;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="brand">
+      <div class="brand__name">Areez</div>
+      <div class="brand__rule"></div>
+      <div class="brand__tag">Business Card Services</div>
+    </main>
+  </body>
+</html>
