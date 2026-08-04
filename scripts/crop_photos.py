@@ -23,7 +23,7 @@ MODEL = os.path.join(ROOT, "scripts", "models", "face_yunet.onnx")
 SIZE = 600        # output avatar size (px, square)
 CROP_MULT = 2.0   # crop side = 2.0x the detected face height (head + shoulders)
 FACE_V = 0.44     # face centre sits at 44% of the crop height
-FACE_H = 0.04     # face centre sits at (50% + FACE_H) horizontally (+ = right)
+FACE_H = 0.0      # face centre sits at (50% + FACE_H) horizontally (+ = right)
 
 
 def bg_color(im):
