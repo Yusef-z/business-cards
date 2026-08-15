@@ -41,8 +41,10 @@
   {
     "slug": "amasca",
     "name": "جمعية مصنعي السيارات وسلاسل الإمداد",
-    "phone": "+966541810000",
+    "email": "media@amasca.org",
     "website": "https://www.amasca.org/",
+    "linkedin": "https://www.linkedin.com/in/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%AF%D9%86-%D8%A7%D9%84%D8%AB%D9%85%D9%8A%D9%86%D8%A9-%D9%88-%D8%A7%D9%84%D8%A3%D8%AD%D8%AC%D8%A7%D8%B1-%D8%A7%D9%84%D9%83%D8%B1%D9%8A%D9%85%D8%A9-8434b2398/",
+    "x": "https://x.com/amasca_org",
     "logo": "/logos/amasca.png"
   },
   {
@@ -144,8 +146,8 @@
   {
     "slug": "food",
     "name": "جمعية مصنعي الاغذية",
-    "phone": "+966554442437",
-    "email": "info@food-ma.org",
+    "phone": "+966502544101",
+    "email": "info@foodma.org",
     "website": "https://www.food-ma.org/",
     "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D8%A7%D9%84%D8%A3%D8%BA%D8%B0%D9%8A%D8%A9-food-manufacturers-association-food/",
     "x": "https://x.com/food_m_a",
@@ -175,15 +177,19 @@
     "slug": "bma",
     "name": "جمعية مصنعي مواد البناء",
     "phone": "+966500073502",
+    "email": "info@bma.org.sa",
+    "website": "https://www.bma.org.sa/",
     "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D9%85%D9%88%D8%A7%D8%AF-%D8%A7%D9%84%D8%A8%D9%86%D8%A7%D8%A1/about/",
+    "x": "https://x.com/bma_org",
     "logo": "/logos/bma.png"
   },
   {
     "slug": "fma",
     "name": "جمعية مصنعي الأثاث",
-    "phone": "+966505484083",
+    "phone": "+966530632979",
     "email": "info@fma.org.sa",
     "website": "https://www.fma.org.sa/",
+    "linkedin": "https://www.linkedin.com/company/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%85%D8%B5%D9%86%D8%B9%D9%8A-%D8%A7%D9%84%D8%A3%D8%AB%D8%A7%D8%AB/",
     "x": "https://x.com/fma_org_sa",
     "logo": "/logos/fma.png"
   },
