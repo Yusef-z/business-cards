@@ -22,8 +22,8 @@ OUT = os.path.join(ROOT, "public", "team")
 MODEL = os.path.join(ROOT, "scripts", "models", "face_yunet.onnx")
 
 SIZE = 600        # output avatar size (px, square)
-CROP_MULT = 2.0   # crop side = 2.0x the detected face height (head + shoulders)
-FACE_V = 0.44     # face centre sits at 44% of the crop height
+CROP_MULT = 2.3   # crop side = 2.3x the detected face height (head + shoulders)
+FACE_V = 0.47     # face centre sits at 47% of the crop height (extra room for hair)
 FACE_H = 0.0      # face centre sits at (50% + FACE_H) horizontally (+ = right)
 
 
