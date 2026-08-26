@@ -19,7 +19,7 @@
     "phone": "+9647873931297",
     "website": "https://www.alwatania-holding.com",
     "location": "Baghdad, Baghdad Governorate Iraq",
-    "photo": null
+    "photo": "/team/mustafa-abdulghani.jpeg"
   },
   {
     "slug": "khlood-ouda-al-ameri",
@@ -41,7 +41,7 @@
     "phone": "+9647880984995",
     "website": "https://www.alwatania-holding.com",
     "location": "Baghdad, Baghdad Governorate Iraq",
-    "photo": null
+    "photo": "/team/reem-manhal-abdulhameed.jpeg"
   },
   {
     "slug": "jamal-naser-hussein",
@@ -52,7 +52,7 @@
     "phone": "+9647865065090",
     "website": "https://www.alwatania-holding.com",
     "location": "Baghdad, Baghdad Governorate Iraq",
-    "photo": null
+    "photo": "/team/jamal-naser-hussein.jpeg"
   },
   {
     "slug": "maher-zahran",
@@ -63,7 +63,7 @@
     "phone": "+9647873931276",
     "website": "https://www.alwatania-holding.com",
     "location": "Baghdad, Baghdad Governorate Iraq",
-    "photo": null
+    "photo": "/team/maher-zahran.jpeg"
   },
   {
     "slug": "jehad-wehbi",
@@ -74,7 +74,7 @@
     "phone": "+9647814451818",
     "website": "https://www.alwatania-holding.com",
     "location": "Baghdad, Baghdad Governorate Iraq",
-    "photo": null
+    "photo": "/team/jehad-wehbi.jpeg"
   },
   {
     "slug": "ahmed-qasim-mohammad",
@@ -107,7 +107,7 @@
     "phone": "+9647732988019",
     "website": "https://www.alwatania-holding.com",
     "location": "Baghdad, Baghdad Governorate Iraq",
-    "photo": null
+    "photo": "/team/talib-dagher-kadhum.jpeg"
   },
   {
     "slug": "hussein-alaa-ali",
@@ -129,7 +129,7 @@
     "phone": "+9647857275975",
     "website": "https://www.alwatania-holding.com",
     "location": "Baghdad, Baghdad Governorate Iraq",
-    "photo": null
+    "photo": "/team/mustafa-saad-hameed.jpeg"
   },
   {
     "slug": "mustafa-hameed-talib",
@@ -141,5 +141,16 @@
     "website": "https://www.alwatania-holding.com",
     "location": "Baghdad, Baghdad Governorate Iraq",
     "photo": null
+  },
+  {
+    "slug": "cammar-fares",
+    "name": "Cammar Fares",
+    "title": "Chief Human Resources Director",
+    "org": "Al Watania Holding Group",
+    "email": "c.fares@alwatania-holding.com",
+    "phone": "+9647855538598",
+    "website": "https://www.alwatania-holding.com",
+    "location": "Baghdad, Baghdad Governorate Iraq",
+    "photo": "/team/cammar-fares.jpeg"
   }
 ]
