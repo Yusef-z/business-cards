@@ -110,7 +110,7 @@ Rules:
 | Slug | Name | Title | Phone (E.164) |
 |---|---|---|---|
 | osama-dawud | Dr. Osama Dawud | CEO | +962795144133 |
-| mustafa-abdulghani | Mustafa Abdulghani | CFO | +9647873931297 |
+| mustafa-abdulghani | Mustafa Abdulghani | CFO | +9647814452000 |
 | khlood-ouda-al-ameri | Khlood Ouda Al-Ameri | HR Director | +9647800221313 |
 | reem-manhal-abdulhameed | Reem Manhal Abdulhameed | Deputy HR Director | +9647880984995 |
 | jamal-naser-hussein | Jamal Naser Hussein | Internal Control Director | +9647865065090 |
