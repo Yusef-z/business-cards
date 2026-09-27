@@ -1,0 +1,26 @@
+{
+  "id": "alawees",
+  "design": "classic",
+  "prefix": "/a",
+  "org": "Al Awees Private Shareholding Company",
+  "lockup": [
+    "شركة الأويس المساهمة الخاصة",
+    "Al Awees Private Shareholding Company"
+  ],
+  "website": "https://www.alawees-global.com",
+  "location": "Iraq, Baghdad – Al-Karrada",
+  "assets": "/a",
+  "team": "/a/team",
+  "directoryLogo": "/a/logo.png",
+  "bottomBg": "/a/bottom-bg.png",
+  "qrLogo": "public/a/logo.png",
+  "qrOut": "qrcodes/a",
+  "colors": {
+    "name": "#383838",
+    "title": "#349041",
+    "placeholder": "#e2ebe0",
+    "page": "#205c39",
+    "theme": "#205c39"
+  },
+  "logoHeight": 76
+}

@@ -25,20 +25,36 @@ build command `npm run build`, output dir `dist`, Node 22.
 Set the real domain via the `SITE_URL` environment variable in your host (Netlify/Cloudflare Pages),
 or by editing `site` in `astro.config.mjs`.
 
-## Employee cards (Al Watania Holding Group)
+## Employee cards (tenants)
 
-Individual staff cards live at `/e/<slug>` (e.g. `/e/hussein-alaa-ali`), with a
-team directory at `/e` and a vCard at `/e/vcards/<slug>.vcf`. English, LTR, Changa
-font, Watania petrol/green identity. Fully separate from the association cards.
+Each company with staff cards is a **tenant**: `tenants/<id>/` holds its identity
+(`tenant.json`: URL prefix, org, colours, asset paths), its source `employees.csv`,
+raw `photos/`, and the generated `employees.json`. Tenants share a **design** from
+`src/designs/<design>/` (Layout, Card, styles); a tenant with a wholly different look
+gets its own design folder. Routes live in `src/pages/<prefix>/` (three thin files).
 
-- Source data: `employees_list.csv`
-- Crop photos:      `python3 scripts/crop_photos.py`      `photos/<slug>.<ext>` → `public/team/<slug>.jpg` (face-centred; needs `pip install opencv-python pillow`)
-- Regenerate data:  `node scripts/build-employees.mjs`  → `src/data/employees.json` (auto-attaches any `public/team/<slug>.*`)
-- Regenerate QR:    `python3 scripts/make_qr.py`         → `qrcodes/e/` (branded, logo-centered; needs `pip install "qrcode[pil]"`)
-- Extract the logo: `python3 scripts/extract_logo.py`    (one-off; swap in an official SVG if available)
-- Unit tests:       `npm test`
+| tenant    | prefix | design  | public assets | example                     |
+|-----------|--------|---------|---------------|-----------------------------|
+| `watania` | `/e`   | classic | `public/e/`, `public/team/` | `/e/hussein-alaa-ali`  |
+| `alawees` | `/a`   | classic | `public/a/`   | `/a/safaa-shghaty-alazaidy` |
 
-Photos are optional. To add one: drop the raw headshot in `photos/<slug>.<ext>`,
-run `crop_photos.py` (face-centres it into `public/team/<slug>.jpg`), then re-run
-`build-employees.mjs`. The card falls back to initials when a person has no photo.
-Slugs are immutable — they are printed in QR codes.
+Cards are English, LTR, Changa font. Every card has a directory at `/<prefix>` and a
+vCard at `/<prefix>/vcards/<slug>.vcf`. Slugs are immutable — they are printed in QR codes.
+
+Regeneration, per tenant (default `watania`; scripts need Python with
+`opencv-python pillow "qrcode[pil]" fonttools`):
+
+    python3 scripts/crop_photos.py alawees      # tenants/alawees/photos/<slug>.<ext> -> public/a/team/<slug>.jpg (face-centred)
+    node scripts/build-employees.mjs alawees    # employees.csv -> employees.json (auto-attaches photos)
+    python3 scripts/make_og.py alawees          # social-preview card -> public/a/og/<slug>.png
+    python3 scripts/make_qr.py alawees          # branded QR -> qrcodes/a/<slug>.png
+    npm test
+
+Photos are optional; the card falls back to initials. The CSV has an optional fifth
+column for a second phone number.
+
+**Adding a tenant:** copy `tenants/alawees/` and edit `tenant.json`; add `logo.png`,
+`banner-bg.png` (and optionally `bottom-bg.png`) under the `assets` folder, and either
+supply `logo-white.png` or derive a pixel-aligned one with
+`python3 scripts/make_splash_logo.py <id>` (needed for the fill-style splash); copy `src/pages/a/` to `src/pages/<prefix>/` and point its imports at the new
+tenant; add a `.tenant-<id>` splash block in `src/designs/classic/styles.css`.

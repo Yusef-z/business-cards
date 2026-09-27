@@ -13,6 +13,8 @@ import json
 import os
 
 import qrcode
+
+import tenant as tenant_mod
 from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.moduledrawers.pil import SquareModuleDrawer
 from qrcode.image.styles.colormasks import SolidFillColorMask
@@ -21,8 +23,9 @@ from PIL import Image, ImageDraw
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.environ.get("SITE_URL", "https://areez-qr.com").rstrip("/")
 BASE = os.environ.get("BASE_PATH", "").rstrip("/")
-LOGO = os.path.join(ROOT, "scripts", "qrcode_logo.png")
-OUT_DIR = os.path.join(ROOT, "qrcodes", "e")
+TENANT = tenant_mod.load()
+LOGO = os.path.join(ROOT, TENANT["qrLogo"])
+OUT_DIR = os.path.join(ROOT, TENANT["qrOut"])
 
 # Logo geometry as a fraction of the QR width.
 PAD_RATIO = 0.30      # white clear-zone (square) behind the logo
@@ -64,13 +67,12 @@ def verify(url: str, path: str):
 
 
 def main() -> None:
-    with open(os.path.join(ROOT, "src", "data", "employees.json"), encoding="utf-8") as f:
-        employees = json.load(f)
+    employees = TENANT["employees"]
     os.makedirs(OUT_DIR, exist_ok=True)
 
     failures = []
     for e in employees:
-        url = f"{SITE}{BASE}/e/{e['slug']}"
+        url = f"{SITE}{BASE}{TENANT['prefix']}/{e['slug']}"
         out = os.path.join(OUT_DIR, f"{e['slug']}.png")
         make_qr(url, out)
         ok = verify(url, out)

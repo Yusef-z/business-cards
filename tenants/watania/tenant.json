@@ -1,0 +1,22 @@
+{
+  "id": "watania",
+  "design": "classic",
+  "prefix": "/e",
+  "org": "Al Watania Holding Group",
+  "website": "https://www.alwatania-holding.com",
+  "location": "Baghdad, Baghdad Governorate Iraq",
+  "assets": "/e",
+  "team": "/team",
+  "directoryLogo": "/brand/watania-logo.png",
+  "ring": "/e/avatar-frame.png",
+  "qrLogo": "scripts/qrcode_logo.png",
+  "qrOut": "qrcodes/e",
+  "colors": {
+    "name": "#003349",
+    "title": "#5cb544",
+    "placeholder": "#dfe6e8",
+    "page": "#05303c",
+    "theme": "#003349"
+  },
+  "logoHeight": 44
+}

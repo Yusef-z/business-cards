@@ -43,4 +43,8 @@ describe("buildVCard", () => {
   it("has the website URL", () => expect(v).toContain("URL:https://www.alwatania-holding.com"));
   it("has the work address", () => expect(v).toContain("ADR;TYPE=WORK:;;Baghdad\\, Baghdad Governorate Iraq;;;;"));
   it("uses CRLF and ends with END", () => expect(v.endsWith("END:VCARD\r\n")).toBe(true));
+  it("adds a second phone when present", () => {
+    const v2 = buildVCard({ name: "A B", org: "X", phone: "+9641", phone2: "+9642" });
+    expect(v2).toContain("TEL;TYPE=WORK,VOICE:+9641\r\nTEL;TYPE=WORK,VOICE:+9642");
+  });
 });

@@ -1,13 +1,11 @@
 ---
-import { initials } from "../lib/employees.js";
-interface Emp {
-  slug: string; name: string; title: string; org: string;
-  email: string; phone: string; website: string; location: string; photo: string | null;
-}
-const { emp } = Astro.props as { emp: Emp };
+import { initials, formatPhoneDisplay } from "../../lib/employees.js";
+import type { Tenant, Employee } from "../../lib/tenant";
+const { emp, tenant } = Astro.props as { emp: Employee; tenant: Tenant };
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const assets = base + tenant.assets;
 
-const vcf = `${base}/e/vcards/${emp.slug}.vcf`;
+const vcf = `${base}${tenant.prefix}/vcards/${emp.slug}.vcf`;
 const email = emp.email.toLowerCase();
 const webDisplay = emp.website.replace(/^https?:\/\//, "").replace(/\/$/, "");
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(emp.location)}`;
@@ -15,27 +13,34 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
 const chevron = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>';
 
 const rows = [
-  { icon: "phone",    text: emp.phone,    href: `tel:${emp.phone}`,   ltr: true },
+  { icon: "phone",    text: formatPhoneDisplay(emp.phone),  href: `tel:${emp.phone}`,  ltr: true },
+  emp.phone2 &&
+  { icon: "phone",    text: formatPhoneDisplay(emp.phone2), href: `tel:${emp.phone2}`, ltr: true },
   { icon: "website",  text: webDisplay,   href: emp.website,          ltr: true, ext: true },
   { icon: "mail",     text: email,        href: `mailto:${email}`,     ltr: true },
   { icon: "location", text: emp.location, href: mapsHref,             ext: true },
-];
+].filter(Boolean) as { icon: string; text: string; href: string; ltr?: boolean; ext?: boolean }[];
 ---
 <main class="ecard">
   <section class="ecard__top">
-    <img class="ecard__bg" src={base + "/e/banner-bg.png"} alt="" aria-hidden="true" />
-    <img class="ecard__logo" src={base + "/e/logo.png"} alt={emp.org} />
-    <div class="ecard__avatar">
+    <img class="ecard__bg" src={assets + "/banner-bg.png"} alt="" aria-hidden="true" />
+    <img class="ecard__logo" src={assets + "/logo.png"} alt={emp.org} />
+    {tenant.lockup && (
+      <p class="ecard__lockup">
+        {tenant.lockup.map((line) => <span>{line}</span>)}
+      </p>
+    )}
+    <div class:list={["ecard__avatar", { "ecard__avatar--gradient": !tenant.ring }]}>
       {emp.photo
         ? <img class="ecard__photo" src={base + emp.photo} alt={emp.name} />
         : <div class="ecard__photo ecard__photo--ph">{initials(emp.name)}</div>}
-      <img class="ecard__ring" src={base + "/e/avatar-frame.png"} alt="" aria-hidden="true" />
+      {tenant.ring && <img class="ecard__ring" src={base + tenant.ring} alt="" aria-hidden="true" />}
     </div>
     <h1 class="ecard__name">{emp.name}</h1>
     <p class="ecard__title">{emp.title}</p>
   </section>
 
-  <section class="ecard__bottom">
+  <section class="ecard__bottom" style={tenant.bottomBg ? `--bottom-bg:url(${base}${tenant.bottomBg})` : undefined}>
     <ul class="ecard__rows">
       {rows.map((r) => (
         <li>
@@ -44,7 +49,7 @@ const rows = [
             href={r.href}
             {...(r.ext ? { target: "_blank", rel: "noopener" } : {})}
           >
-            <img class="ecard__row-icon" src={`${base}/e/icons/${r.icon}.png`} alt="" aria-hidden="true" />
+            <img class="ecard__row-icon" src={`${base}/classic/icons/${r.icon}.png`} alt="" aria-hidden="true" />
             <span class="ecard__row-text" dir={r.ltr ? "ltr" : undefined}>{r.text}</span>
             <span class="ecard__row-go" set:html={chevron} />
           </a>
@@ -56,7 +61,7 @@ const rows = [
 
     <div class="ecard__actions">
       <a class="ecard__action" href={vcf} download aria-label="Save contact">
-        <img src={base + "/e/icons/add.png"} alt="Save contact" />
+        <img src={base + "/classic/icons/add.png"} alt="Save contact" />
       </a>
       <button
         class="ecard__action"
@@ -65,7 +70,7 @@ const rows = [
         data-share-url={Astro.url.href}
         onclick="(async()=>{const b=event.currentTarget;const u=b.dataset.shareUrl||location.href;try{if(navigator.share){await navigator.share({title:document.title,url:u})}else{await navigator.clipboard.writeText(u);b.classList.add('is-copied');setTimeout(()=>b.classList.remove('is-copied'),1400)}}catch(e){}})()"
       >
-        <img src={base + "/e/icons/share.png"} alt="Share" />
+        <img src={base + "/classic/icons/share.png"} alt="Share" />
         <span class="ecard__toast">Link copied</span>
       </button>
     </div>
@@ -73,11 +78,11 @@ const rows = [
 </main>
 
 <style is:global>
-  /* This page is a full-bleed card; neutralize the shared team.css body layout. */
+  /* This page is a full-bleed card; neutralize the shared styles.css body layout. */
   html, body { margin: 0; padding: 0; }
   body {
     display: block;
-    background: #05303c;
+    background: var(--c-page);
     padding: 0;
   }
 </style>
@@ -95,6 +100,7 @@ const rows = [
     /* Rise into view as the splash screen clears. */
     animation: ecard-rise 0.6s ease 2.1s both;
   }
+  :global(.tenant-alawees) .ecard { animation-delay: 2.55s; }
   @keyframes ecard-rise {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -103,7 +109,7 @@ const rows = [
     .ecard { animation: none; }
   }
 
-  /* ---------- TOP (white, arch watermark) ---------- */
+  /* ---------- TOP (white, tenant banner image behind) ---------- */
   .ecard__top {
     position: relative;
     padding: 30px 24px 26px;
@@ -121,14 +127,28 @@ const rows = [
     object-position: center 42%;
     pointer-events: none;
   }
+  :global(.tenant-alawees) .ecard__bg {
+    width: 100%;
+    object-position: center top;
+  }
   .ecard__top > :not(.ecard__bg) { position: relative; z-index: 1; }
 
   .ecard__logo {
     display: block;
-    height: 44px;
+    height: var(--logo-h);
     width: auto;
     margin: 4px auto 18px;
   }
+  .ecard__lockup {
+    display: flex;
+    flex-direction: column;
+    margin: -10px 0 18px;
+    color: #747474;
+    font-weight: 600;
+    line-height: 1.3;
+    font-size: 12px;
+  }
+  .ecard__lockup span:first-child { font-size: 15px; }
 
   .ecard__avatar {
     position: relative;
@@ -140,6 +160,12 @@ const rows = [
        100% = fills to the ring's outer edge (perfect fit).
        Lower it (e.g. 94%) to shrink just the image within the ring. */
     --photo-size: 94%;
+  }
+  /* No frame PNG: draw the ring as a brand gradient behind the photo. */
+  .ecard__avatar--gradient {
+    border-radius: 50%;
+    background: linear-gradient(160deg, #a8c243, #205c39);
+    --photo-size: calc(100% - 8px);
   }
   .ecard__photo {
     position: absolute;
@@ -155,8 +181,8 @@ const rows = [
   .ecard__photo--ph {
     display: grid;
     place-items: center;
-    background: #dfe6e8;
-    color: #003349;
+    background: var(--c-ph);
+    color: var(--c-name);
     font-weight: 800;
     font-size: 27px;
     letter-spacing: 1px;
@@ -173,25 +199,27 @@ const rows = [
     margin: 0;
     font-size: 17px;
     font-weight: 600;
-    color: #003349;
+    color: var(--c-name);
     line-height: 1.2;
   }
   .ecard__title {
     margin: 1px 0 0;
     font-size: 17px;
     font-weight: 600;
-    color: #5cb544;
+    color: var(--c-title);
     line-height: 1.2;
   }
+  :global(.tenant-alawees) .ecard__name { font-size: 21px; font-weight: 700; }
+  :global(.tenant-alawees) .ecard__title { font-size: 16px; font-weight: 700; }
 
-  /* ---------- BOTTOM (petrol -> green) ---------- */
+  /* ---------- BOTTOM (tenant image, or petrol -> green gradient) ---------- */
   .ecard__bottom {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 22px 20px 26px;
     /* Bright green at the bottom-left, deepening to petrol at the top-right. */
-    background: linear-gradient(to top right, #77b25f 0%, #033e4f 100%);
+    background: var(--bottom-bg, linear-gradient(to top right, #77b25f 0%, #033e4f 100%)) center / cover;
   }
   .ecard__rows {
     list-style: none;
@@ -218,6 +246,10 @@ const rows = [
     color: #fff;
     text-decoration: none;
     transition: filter 0.15s ease;
+  }
+  :global(.tenant-alawees) .ecard__row {
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.14);
   }
   .ecard__row:active { filter: brightness(1.35); }
   .ecard__row-icon {
@@ -270,6 +302,10 @@ const rows = [
     cursor: pointer;
     transition: filter 0.15s ease;
   }
+  :global(.tenant-alawees) .ecard__action {
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.14);
+  }
   .ecard__action:active { filter: brightness(1.35); }
   .ecard__action img { width: 26px; height: 26px; object-fit: contain; }
   .ecard__toast {
@@ -277,7 +313,7 @@ const rows = [
     top: -30px;
     left: 50%;
     transform: translateX(-50%);
-    background: #003349;
+    background: var(--c-name);
     color: #fff;
     font-size: 12px;
     padding: 4px 10px;

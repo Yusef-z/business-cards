@@ -5,12 +5,16 @@
 - `crop_logos.py` — crops the full logo lockups (icon + name) from the source PDF into `public/logos/`. Used for social share (Open Graph) images.
 - `crop_icons.py` — derives an icon-only mark for each association from `public/logos/` into `public/icons/`. Used in the card header beside the name text. Run after `crop_logos.py`.
 
-## Employee cards (`/e/<slug>`)
+## Employee cards (tenants: `/e/<slug>` watania, `/a/<slug>` alawees)
 
-Regeneration order after adding/changing an employee or photo:
+All four scripts take the tenant id as their first argument (default `watania`) and
+read `tenants/<id>/tenant.json` via `tenant.py`. Regeneration order after adding or
+changing an employee or photo:
 
-1. drop the raw photo at `photos/<slug>.<ext>` (keeps the original)
-2. `crop_photos.py` — YuNet face-centred square 600×600 crop → `public/team/<slug>.jpg` (used on the card)
-3. `build-employees.mjs` — parse `employees_list.csv` → `src/data/employees.json`, auto-attaching any `public/team/<slug>.jpg`
-4. `make_og.py` — 1200×630 brand social-preview card (avatar + name + position) → `public/e/og/<slug>.png` (the page's `og:image`)
-5. `make_qr.py` — branded QR to the live card → `qrcodes/e/<slug>.png`
+1. drop the raw photo at `tenants/<id>/photos/<slug>.<ext>` (keeps the original)
+2. `crop_photos.py <id>` — YuNet face-centred square 600×600 crop → `public/<team>/<slug>.jpg` (used on the card)
+3. `build-employees.mjs <id>` — parse `tenants/<id>/employees.csv` → `tenants/<id>/employees.json`, auto-attaching any cropped photo
+4. `make_og.py <id>` — 820×900 social-preview card (banner, logo, avatar, name, position; colours from `tenant.json`) → `public/<assets>/og/<slug>.png`
+5. `make_qr.py <id>` — branded QR (centre logo from `qrLogo`) to the live card → `<qrOut>/<slug>.png`
+
+`make_splash_logo.py <id>` — derives `<assets>/logo-white.png` from `logo.png` (ghosted white, same canvas) so the splash can stack the two and wipe the colour version in from the bottom.

@@ -1,12 +1,12 @@
 """Face-centered square crops for employee avatars.
 
-Reads raw photos from photos/<slug>.<ext>, detects the largest face with
+Reads raw photos from tenants/<id>/photos/<slug>.<ext>, detects the largest face with
 OpenCV's YuNet detector, and writes a 600x600 JPEG cropped square and centred
 on the face (head + shoulders) to public/team/<slug>.jpg. Falls back to a
 plain centre crop when no face is found. The generator (build-employees.mjs)
 then auto-attaches these to the cards.
 
-Usage: python3 scripts/crop_photos.py
+Usage: python3 scripts/crop_photos.py [tenant-id]   (default: watania)
 Deps:  pip install "opencv-python" pillow   (model: scripts/models/face_yunet.onnx)
 """
 import glob
@@ -16,9 +16,12 @@ import cv2
 import numpy as np
 from PIL import Image
 
+import tenant as tenant_mod
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(ROOT, "photos")
-OUT = os.path.join(ROOT, "public", "team")
+TENANT = tenant_mod.load()
+SRC = os.path.join(TENANT["dir"], "photos")
+OUT = os.path.join(ROOT, "public", TENANT["team"].lstrip("/"))
 MODEL = os.path.join(ROOT, "scripts", "models", "face_yunet.onnx")
 
 SIZE = 600        # output avatar size (px, square)
@@ -83,7 +86,7 @@ def main():
     for p in files:
         slug = os.path.splitext(os.path.basename(p))[0]
         note = crop_one(p, os.path.join(OUT, f"{slug}.jpg"))
-        print(f"{slug:24s} -> public/team/{slug}.jpg  ({note})")
+        print(f"{slug:24s} -> public{TENANT['team']}/{slug}.jpg  ({note})")
 
 
 if __name__ == "__main__":

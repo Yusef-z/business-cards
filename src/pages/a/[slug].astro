@@ -1,8 +1,8 @@
 ---
 import Layout from "../../designs/classic/Layout.astro";
 import Card from "../../designs/classic/Card.astro";
-import tenant from "../../../tenants/watania/tenant.json";
-import employees from "../../../tenants/watania/employees.json";
+import tenant from "../../../tenants/alawees/tenant.json";
+import employees from "../../../tenants/alawees/employees.json";
 
 export function getStaticPaths() {
   return employees.map((emp) => ({ params: { slug: emp.slug }, props: { emp } }));

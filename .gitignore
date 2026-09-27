@@ -5,3 +5,8 @@ dist/
 tmp/
 screenshots/
 *.log
+
+# Local review screenshots (screenshot-review skill)
+.screenshots/
+scripts/__pycache__/
+.playwright-mcp/
