@@ -12,7 +12,10 @@ export interface Tenant {
   team: string;            // public folder for cropped headshots
   directoryLogo: string;
   ring?: string;           // avatar frame PNG; omitted → CSS gradient ring
-  bottomBg?: string;       // image behind the contact rows; omitted → CSS gradient
+  artTop?: number;         // banner-bg.png is the whole card artwork (header + bottom
+                           // halves); this fraction of its height is the header part.
+                           // Omitted → banner-bg.png covers the header only and the
+                           // bottom section is the CSS gradient.
   logoHeight: number;      // header logo height in px on the 430px card
   qrLogo: string;
   qrOut: string;

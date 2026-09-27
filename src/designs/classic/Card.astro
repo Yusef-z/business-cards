@@ -22,8 +22,14 @@ const rows = [
 ].filter(Boolean) as { icon: string; text: string; href: string; ltr?: boolean; ext?: boolean }[];
 ---
 <main class="ecard">
-  <section class="ecard__top">
-    <img class="ecard__bg" src={assets + "/banner-bg.png"} alt="" aria-hidden="true" />
+  <section class:list={["ecard__top", { "ecard__top--art": tenant.artTop }]}>
+    <img
+      class:list={["ecard__bg", { "ecard__bg--art": tenant.artTop }]}
+      src={assets + "/banner-bg.png"}
+      alt=""
+      aria-hidden="true"
+      style={tenant.artTop ? `--art-h:${(100 / tenant.artTop).toFixed(2)}%` : undefined}
+    />
     <img class="ecard__logo" src={assets + "/logo.png"} alt={emp.org} />
     {tenant.lockup && (
       <p class="ecard__lockup">
@@ -40,7 +46,7 @@ const rows = [
     <p class="ecard__title">{emp.title}</p>
   </section>
 
-  <section class="ecard__bottom" style={tenant.bottomBg ? `--bottom-bg:url(${base}${tenant.bottomBg})` : undefined}>
+  <section class:list={["ecard__bottom", { "ecard__bottom--art": tenant.artTop }]}>
     <ul class="ecard__rows">
       {rows.map((r) => (
         <li>
@@ -127,9 +133,15 @@ const rows = [
     object-position: center 42%;
     pointer-events: none;
   }
-  :global(.tenant-alawees) .ecard__bg {
-    width: 100%;
-    object-position: center top;
+  /* Full-card artwork (tenant.artTop): one image whose header part is scaled
+     to exactly fill the top section by height; the rest overflows behind the
+     bottom section at the same scale, so the drawing stays continuous across
+     the seam. --art-h = 100% / artTop. The card's overflow:hidden clips it. */
+  .ecard__top--art { overflow: visible; }
+  .ecard__bg--art {
+    width: auto;
+    height: var(--art-h);
+    object-fit: fill;
   }
   .ecard__top > :not(.ecard__bg) { position: relative; z-index: 1; }
 
@@ -219,7 +231,13 @@ const rows = [
     justify-content: flex-start;
     padding: 22px 20px 26px;
     /* Bright green at the bottom-left, deepening to petrol at the top-right. */
-    background: var(--bottom-bg, linear-gradient(to top right, #77b25f 0%, #033e4f 100%)) center / cover;
+    background: linear-gradient(to top right, #77b25f 0%, #033e4f 100%);
+  }
+  /* Full-card artwork: the header image overflows behind this section, so no gradient. */
+  .ecard__bottom--art {
+    position: relative;
+    z-index: 1;
+    background: none;
   }
   .ecard__rows {
     list-style: none;

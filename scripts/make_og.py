@@ -140,7 +140,10 @@ def gradient_ring(d: int, width: int) -> Image.Image:
 
 def render(emp: dict, out: str) -> None:
     # --- Background: the tenant banner, cover-fit like the card ---
-    bg = cover(Image.open(os.path.join(E, "banner-bg.png")), W, H, oy=0.42)
+    banner = Image.open(os.path.join(E, "banner-bg.png"))
+    if TENANT.get("artTop"):  # full-card artwork: keep only the header part
+        banner = banner.crop((0, 0, banner.width, round(banner.height * TENANT["artTop"])))
+    bg = cover(banner, W, H, oy=0.42)
     img = bg.convert("RGBA")
     draw = ImageDraw.Draw(img)
     cx = W // 2

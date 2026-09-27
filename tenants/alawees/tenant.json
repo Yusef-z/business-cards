@@ -12,7 +12,6 @@
   "assets": "/a",
   "team": "/a/team",
   "directoryLogo": "/a/logo.png",
-  "bottomBg": "/a/bottom-bg.png",
   "qrLogo": "public/a/logo.png",
   "qrOut": "qrcodes/a",
   "colors": {
@@ -22,5 +21,6 @@
     "page": "#205c39",
     "theme": "#205c39"
   },
-  "logoHeight": 76
+  "logoHeight": 76,
+  "artTop": 0.3735
 }

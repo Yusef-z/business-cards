@@ -38,8 +38,8 @@ gets its own design folder. Routes live in `src/pages/<prefix>/` (three thin fil
 | `watania` | `/e`   | classic | `public/e/`, `public/team/` | `/e/hussein-alaa-ali`  |
 | `alawees` | `/a`   | classic | `public/a/`   | `/a/safaa-shghaty-alazaidy` |
 
-Cards are English, LTR, Changa font. Every card has a directory at `/<prefix>` and a
-vCard at `/<prefix>/vcards/<slug>.vcf`. Slugs are immutable — they are printed in QR codes.
+Cards are English, LTR, Changa font. Every card has a vCard at
+`/<prefix>/vcards/<slug>.vcf`; Watania also has a team directory at `/e` (Alawees has none). Slugs are immutable — they are printed in QR codes.
 
 Regeneration, per tenant (default `watania`; scripts need Python with
 `opencv-python pillow "qrcode[pil]" fonttools`):
@@ -54,7 +54,8 @@ Photos are optional; the card falls back to initials. The CSV has an optional fi
 column for a second phone number.
 
 **Adding a tenant:** copy `tenants/alawees/` and edit `tenant.json`; add `logo.png`,
-`banner-bg.png` (and optionally `bottom-bg.png`) under the `assets` folder, and either
+`banner-bg.png` under the `assets` folder (either a header-only image, or the whole
+card artwork with `artTop` in `tenant.json` giving the header's share of its height), and either
 supply `logo-white.png` or derive a pixel-aligned one with
-`python3 scripts/make_splash_logo.py <id>` (needed for the fill-style splash); copy `src/pages/a/` to `src/pages/<prefix>/` and point its imports at the new
-tenant; add a `.tenant-<id>` splash block in `src/designs/classic/styles.css`.
+`python3 scripts/make_splash_logo.py <id>` (needed for the fill-style splash); copy `src/pages/a/` to `src/pages/<prefix>/` (add `index.astro` from `src/pages/e/`
+if the tenant wants a directory) and point its imports at the new tenant; add a `.tenant-<id>` splash block in `src/designs/classic/styles.css`.
